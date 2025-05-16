@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Ghost Hunter</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', sans-serif;
+    }
+
+    body {
+      background: #0f0f0f;
+      color: #fff;
+      overflow-x: hidden;
+    }
+
+    /* Hero Section */
+    .hero {
+      height: 100vh;
+      width: 100%;
+      background: url('background.jpg') center/cover no-repeat;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 2rem;
+    }
+
+    .hero h1 {
+      font-size: 4rem;
+      margin-bottom: 1rem;
+      color: #ff4f4f;
+    }
+
+    .hero button {
+      font-size: 1.5rem;
+      padding: 0.75rem 2rem;
+      background: #ff4f4f;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      color: #fff;
+      transition: background 0.3s;
+    }
+
+    .hero button:hover {
+      background: #ff1e1e;
+    }
+
+    /* Leaderboard Section */
+    .leaderboard {
+      padding: 4rem 2rem;
+      background: #1c1c1c;
+      text-align: center;
+    }
+
+    .leaderboard h2 {
+      font-size: 2.5rem;
+      margin-bottom: 2rem;
+    }
+
+    .leaderboard ul {
+      list-style: none;
+      max-width: 500px;
+      margin: auto;
+      padding: 0;
+    }
+
+    .leaderboard li {
+      background: #292929;
+      padding: 1rem;
+      margin: 0.5rem 0;
+      border-radius: 6px;
+      display: flex;
+      justify-content: space-between;
+      font-size: 1.2rem;
+    }
+
+    /* About Section */
+    .about {
+      padding: 4rem 2rem;
+      background: #121212;
+      text-align: center;
+    }
+
+    .about h2 {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .about p {
+      max-width: 700px;
+      margin: auto;
+      font-size: 1.1rem;
+      line-height: 1.6;
+    }
+
+    /* Footer */
+    footer {
+      padding: 1.5rem;
+      background: #0a0a0a;
+      text-align: center;
+      color: #888;
+      font-size: 0.9rem;
+    }
+
+  </style>
+</head>
+<body>
+
+  <!-- Hero -->
+  <section class="hero">
+    <h1>Ghost Hunter</h1>
+    <button onclick="window.location.href='game.html'">Start Game</button>
+  </section>
+
+  <!-- Leaderboard -->
+  <section class="leaderboard">
+  <h2>Top 5 Players</h2>
+  <ul id="leaderboard-list">
+    <li><span>#1 Player1</span><span>150</span></li>
+    <li><span>#2 Player2</span><span>140</span></li>
+    <li><span>#3 Player3</span><span>130</span></li>
+    <li><span>#4 Player4</span><span>120</span></li>
+    <li><span>#5 Player5</span><span>110</span></li>
+  </ul>
+</section>
+
+
+  <!-- About Game -->
+  <section class="about">
+    <h2>About the Game</h2>
+    <p>
+      Tap the ghosts to earn 10 points each. Every 6 ghosts you destroy, a special ghost appears worth 30 points. Be quick and accurate to climb the leaderboard!
+    </p>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    &copy; 2025 Ghost Hunter | Built for Hackathon
+  </footer>
+
+</body>
+</html>

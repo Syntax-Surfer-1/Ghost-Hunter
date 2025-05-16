@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Ghost Hunter</title>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Press Start 2P', cursive;
+      background: #0d0d0d;
+      color: #fff;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 24px;
+      background: #111;
+      border-bottom: 2px solid #333;
+    }
+
+    nav h1 {
+      font-size: 14px;
+    }
+
+    nav button {
+      font-family: inherit;
+      background: #222;
+      color: white;
+      border: 1px solid #444;
+      padding: 6px 12px;
+      border-radius: 6px;
+      margin-left: 8px;
+      cursor: pointer;
+    }
+
+    #hud {
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      padding: 10px;
+      background: #1a1a1a;
+      border-bottom: 2px solid #333;
+      font-size: 10px;
+    }
+
+    #hud img {
+      height: 20px;
+    }
+
+    #gameArea {
+      flex: 1;
+      position: relative;
+      background: url('/images/bg.jpg') no-repeat center/cover;
+      margin: 0 auto;
+      width: 100%;
+      max-width: 1000px;
+      border: 2px solid #333;
+      border-radius: 12px;
+      overflow: hidden;
+    }
+
+    .ghost {
+      position: absolute;
+      width: 60px;
+      height: 60px;
+      background: url('https://i.ibb.co/VjMfNXL/ghost.png') no-repeat center/contain;
+      background-size: contain;
+      animation: fadeOut 2s forwards;
+      cursor: pointer;
+    }
+
+    .bonus {
+      background: url('https://i.ibb.co/s9gVn1m/bonus-ghost.png') no-repeat center/contain;
+      background-size: contain;
+    }
+
+    @keyframes fadeOut {
+      0% { opacity: 1; }
+      100% { opacity: 0; }
+    }
+
+    .modal {
+      position: fixed;
+      inset: 0;
+      display: none;
+      background: rgba(0,0,0,0.8);
+      justify-content: center;
+      align-items: center;
+      z-index: 100;
+    }
+
+    .modal-content {
+      background: #1b1b1b;
+      color: white;
+      padding: 20px;
+      width: 90%;
+      max-width: 400px;
+      border-radius: 10px;
+      text-align: center;
+    }
+
+    .modal-content h2 {
+      font-size: 14px;
+      margin-bottom: 10px;
+    }
+
+    #leaderboard li {
+      list-style: none;
+      margin: 5px 0;
+      font-size: 10px;
+    }
+
+    input[type="text"] {
+      padding: 10px;
+      font-family: inherit;
+      width: 90%;
+      margin: 10px 0;
+    }
+
+    button {
+      font-family: inherit;
+    }
+
+    @media (max-width: 600px) {
+      nav h1 {
+        font-size: 12px;
+      }
+
+      #hud {
+        flex-direction: column;
+        gap: 6px;
+      }
+
+      .ghost {
+        width: 40px;
+        height: 40px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <h1>👻 GHOST HUNTER</h1>
+    <div>
+      <button onclick="startGame()">Home</button>
+      <button onclick="toggleModal('infoModal')">Info</button>
+      <button onclick="toggleModal('leaderboardModal')">Leaderboard</button>
+    </div>
+  </nav>
+
+  <div id="hud">
+    <div>Score: <span id="score">0</span></div>
+    <div>Health: <img id="hearts" src="/images/heart-3.png" alt="hearts"/></div>
+    <div>Time: <span id="time">60</span>s</div>
+  </div>
+
+  <div id="gameArea"></div>
+
+  <!-- Info Modal -->
+  <div class="modal" id="infoModal">
+    <div class="modal-content">
+      <h2>How to Play</h2>
+      <p>Click ghosts to earn points.<br/>Miss them and lose health.<br/>Bonus ghosts = +30!</p>
+      <button onclick="toggleModal('infoModal')">Close</button>
+    </div>
+  </div>
+
+  <!-- Leaderboard Modal -->
+  <div class="modal" id="leaderboardModal">
+    <div class="modal-content">
+      <h2>🏆 Leaderboard</h2>
+      <ol id="leaderboard"></ol>
+      <button onclick="toggleModal('leaderboardModal')">Close</button>
+    </div>
+  </div>
+
+  <!-- Game Over Modal -->
+  <div id="gameOverModal" class="modal">
+    <div class="modal-content">
+      <h2>Game Over</h2>
+      <p>Your Score: <span id="finalScore">0</span></p>
+      <input type="text" id="playerName" placeholder="Enter your name"/>
+      <button onclick="submitScore()">Submit Score</button>
+    </div>
+  </div>
+
+  <script>
+    let score = 0, health = 3, timeLeft = 60;
+    let ghostCount = 0;
+    let gameInterval, ghostTimeout, currentGhost;
+
+    const gameArea = document.getElementById('gameArea');
+
+    function startGame() {
+      score = 0;
+      health = 3;
+      timeLeft = 60;
+      ghostCount = 0;
+      currentGhost = null;
+
+      updateHearts();
+      document.getElementById('score').textContent = score;
+      document.getElementById('time').textContent = timeLeft;
+      document.getElementById('gameOverModal').style.display = 'none';
+      document.getElementById('playerName').value = '';
+      gameArea.innerHTML = '';
+
+      clearInterval(gameInterval);
+      clearTimeout(ghostTimeout);
+
+      gameInterval = setInterval(gameLoop, 1000);
+      spawnGhost();
+    }
+
+    function gameLoop() {
+      timeLeft--;
+      document.getElementById('time').textContent = timeLeft;
+      if (timeLeft <= 0 || health <= 0) endGame();
+    }
+
+    function spawnGhost() {
+      if (currentGhost && gameArea.contains(currentGhost)) {
+        gameArea.removeChild(currentGhost);
+      }
+
+      ghostCount++;
+      const ghost = document.createElement('div');
+      ghost.className = 'ghost';
+      if (ghostCount % 6 === 0) ghost.classList.add('bonus');
+
+      const maxTop = gameArea.clientHeight - 60;
+      const maxLeft = gameArea.clientWidth - 60;
+      ghost.style.top = Math.random() * maxTop + 'px';
+      ghost.style.left = Math.random() * maxLeft + 'px';
+
+      ghost.onclick = function (e) {
+        e.stopPropagation();
+        score += ghost.classList.contains('bonus') ? 30 : 10;
+        document.getElementById('score').textContent = score;
+        gameArea.removeChild(ghost);
+        currentGhost = null;
+        if (timeLeft > 0 && health > 0) spawnGhost();
+      };
+
+      gameArea.appendChild(ghost);
+      currentGhost = ghost;
+
+      ghostTimeout = setTimeout(() => {
+        if (gameArea.contains(ghost)) {
+          gameArea.removeChild(ghost);
+          health--;
+          updateHearts();
+          if (health <= 0) endGame();
+          else spawnGhost();
+        }
+      }, 2000);
+    }
+
+    function endGame() {
+      clearInterval(gameInterval);
+      clearTimeout(ghostTimeout);
+      if (currentGhost && gameArea.contains(currentGhost)) {
+        gameArea.removeChild(currentGhost);
+      }
+      currentGhost = null;
+      document.getElementById('finalScore').textContent = score;
+      document.getElementById('gameOverModal').style.display = 'flex';
+    }
+
+    function submitScore() {
+      const name = document.getElementById('playerName').value.trim();
+      if (!name) return alert("Enter your name!");
+      const scores = JSON.parse(localStorage.getItem('ghost_scores') || '[]');
+      scores.push({ name, score });
+      scores.sort((a, b) => b.score - a.score);
+      localStorage.setItem('ghost_scores', JSON.stringify(scores.slice(0, 5)));
+      document.getElementById('gameOverModal').style.display = 'none';
+      renderLeaderboard();
+    }
+
+    function renderLeaderboard() {
+      const scores = JSON.parse(localStorage.getItem('ghost_scores') || '[]');
+      const board = document.getElementById('leaderboard');
+      board.innerHTML = '';
+      scores.forEach((entry, i) => {
+        const li = document.createElement('li');
+        li.textContent = `${i + 1}. ${entry.name} - ${entry.score} pts`;
+        board.appendChild(li);
+      });
+    }
+
+    function toggleModal(id) {
+      const modal = document.getElementById(id);
+      modal.style.display = modal.style.display === 'flex' ? 'none' : 'flex';
+    }
+
+    function updateHearts() {
+      document.getElementById('hearts').src = `/images/heart-${health}.png`;
+    }
+
+    renderLeaderboard();
+  </script>
+
+</body>
+</html>
