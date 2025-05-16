@@ -1,315 +1,473 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Ghost Hunter</title>
-  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
-  <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; }
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Ghost Hunter</title>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
 
-    body {
-      font-family: 'Press Start 2P', cursive;
-      background: #0d0d0d;
-      color: #fff;
-      overflow: hidden;
-      display: flex;
-      flex-direction: column;
-      min-height: 100vh;
-    }
+        body {
+            font-family: 'Press Start 2P', cursive;
+            background: #0a0f2c;
+            color: #fff;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
 
-    nav {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 12px 24px;
-      background: #111;
-      border-bottom: 2px solid #333;
-    }
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 24px;
+            background: #10193a;
+            border-bottom: 2px solid #333;
+        }
 
-    nav h1 {
-      font-size: 14px;
-    }
+        nav h1 {
+            font-size: 14px;
+        }
 
-    nav button {
-      font-family: inherit;
-      background: #222;
-      color: white;
-      border: 1px solid #444;
-      padding: 6px 12px;
-      border-radius: 6px;
-      margin-left: 8px;
-      cursor: pointer;
-    }
+        nav button {
+            font-family: inherit;
+            background: #1a254d;
+            color: white;
+            border: 1px solid #444;
+            padding: 6px 12px;
+            border-radius: 6px;
+            margin-left: 8px;
+            cursor: pointer;
+        }
 
-    #hud {
-      display: flex;
-      justify-content: space-around;
-      align-items: center;
-      padding: 10px;
-      background: #1a1a1a;
-      border-bottom: 2px solid #333;
-      font-size: 10px;
-    }
+        #hud {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            padding: 10px;
+            background: #142042;
+            border-bottom: 2px solid #333;
+            font-size: 10px;
+        }
 
-    #hud img {
-      height: 20px;
-    }
+        #hud img {
+            height: 20px;
+        }
 
-    #gameArea {
-      flex: 1;
-      position: relative;
-      background: url('/images/bg.jpg') no-repeat center/cover;
-      margin: 0 auto;
-      width: 100%;
-      max-width: 1000px;
-      border: 2px solid #333;
-      border-radius: 12px;
-      overflow: hidden;
-    }
+        #gameArea {
+            flex: 1;
+            position: relative;
+            background: url('/images/Gbg.jpg') no-repeat center/cover;
+            margin: 0 auto;
+            width: 100%;
+            max-width: 1300px;
+            border: 2px solid #333;
+            border-radius: 12px;
+            overflow: hidden;
+        }
 
-    .ghost {
-      position: absolute;
-      width: 60px;
-      height: 60px;
-      background: url('https://i.ibb.co/VjMfNXL/ghost.png') no-repeat center/contain;
-      background-size: contain;
-      animation: fadeOut 2s forwards;
-      cursor: pointer;
-    }
+        .ghost {
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            background: url('/images/G1.png') no-repeat center/contain;
+            background-size: contain;
+            animation: fadeOut 2s forwards;
+            cursor: pointer;
+        }
 
-    .bonus {
-      background: url('https://i.ibb.co/s9gVn1m/bonus-ghost.png') no-repeat center/contain;
-      background-size: contain;
-    }
+        .bonus {
+            background: url('https://i.ibb.co/s9gVn1m/bonus-ghost.png') no-repeat center/contain;
+            background-size: contain;
+        }
 
-    @keyframes fadeOut {
-      0% { opacity: 1; }
-      100% { opacity: 0; }
-    }
+        @keyframes fadeOut {
+            0% {
+                opacity: 1;
+            }
+            100% {
+                opacity: 0;
+            }
+        }
 
-    .modal {
-      position: fixed;
-      inset: 0;
-      display: none;
-      background: rgba(0,0,0,0.8);
-      justify-content: center;
-      align-items: center;
-      z-index: 100;
-    }
+        .modal {
+            position: fixed;
+            inset: 0;
+            display: none;
+            background: rgba(0, 0, 0, 0.8);
+            justify-content: center;
+            align-items: center;
+            z-index: 100;
+        }
 
-    .modal-content {
-      background: #1b1b1b;
-      color: white;
-      padding: 20px;
-      width: 90%;
-      max-width: 400px;
-      border-radius: 10px;
-      text-align: center;
-    }
+        .modal-content {
+            background: #152246;
+            color: white;
+            padding: 20px;
+            width: 90%;
+            max-width: 400px;
+            border-radius: 10px;
+            text-align: center;
+        }
 
-    .modal-content h2 {
-      font-size: 14px;
-      margin-bottom: 10px;
-    }
+        .modal-content h2 {
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
 
-    #leaderboard li {
-      list-style: none;
-      margin: 5px 0;
-      font-size: 10px;
-    }
+        input[type="text"] {
+            padding: 10px;
+            font-family: inherit;
+            width: 90%;
+            margin: 10px 0;
+        }
 
-    input[type="text"] {
-      padding: 10px;
-      font-family: inherit;
-      width: 90%;
-      margin: 10px 0;
-    }
+        button {
+            font-family: inherit;
+            margin: 5px;
+            padding: 8px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            border: 1px solid #444;
+            background-color: #1a254d;
+            color: white;
+        }
 
-    button {
-      font-family: inherit;
-    }
+        @media (max-width: 600px) {
+            nav h1 {
+                font-size: 12px;
+            }
 
-    @media (max-width: 600px) {
-      nav h1 {
-        font-size: 12px;
-      }
+            #hud {
+                flex-direction: column;
+                gap: 6px;
+            }
 
-      #hud {
-        flex-direction: column;
-        gap: 6px;
-      }
-
-      .ghost {
-        width: 40px;
-        height: 40px;
-      }
-    }
-  </style>
+            .ghost {
+                width: 40px;
+                height: 40px;
+            }
+        }
+    </style>
 </head>
 <body>
 
-  <nav>
-    <h1>👻 GHOST HUNTER</h1>
+<nav>
+    <h1>GHOST HUNTER</h1>
     <div>
-      <button onclick="startGame()">Home</button>
-      <button onclick="toggleModal('infoModal')">Info</button>
-      <button onclick="toggleModal('leaderboardModal')">Leaderboard</button>
+        <button onclick="window.location.href='index.html'">Home</button>
+        <button onclick="toggleModal('infoModal')">Info</button>
     </div>
-  </nav>
+</nav>
 
-  <div id="hud">
-    <div>Score: <span id="score">0</span></div>
+<div id="hud">
     <div>Health: <img id="hearts" src="/images/heart-3.png" alt="hearts"/></div>
+    <div>Score: <span id="score">0</span></div>
     <div>Time: <span id="time">60</span>s</div>
-  </div>
+</div>
 
-  <div id="gameArea"></div>
+<div id="gameArea"></div>
 
-  <!-- Info Modal -->
-  <div class="modal" id="infoModal">
+<div class="modal" id="infoModal">
     <div class="modal-content">
-      <h2>How to Play</h2>
-      <p>Click ghosts to earn points.<br/>Miss them and lose health.<br/>Bonus ghosts = +30!</p>
-      <button onclick="toggleModal('infoModal')">Close</button>
+        <h2>How to Play</h2>
+        <p>Click ghosts to earn points.<br/>Miss them and lose health.<br/>Bonus ghosts = +30!</p>
+        <button onclick="toggleModal('infoModal')">Close</button>
     </div>
-  </div>
+</div>
 
-  <!-- Leaderboard Modal -->
-  <div class="modal" id="leaderboardModal">
+<div id="gameOverModal" class="modal">
     <div class="modal-content">
-      <h2>🏆 Leaderboard</h2>
-      <ol id="leaderboard"></ol>
-      <button onclick="toggleModal('leaderboardModal')">Close</button>
+        <h2>Game Over</h2>
+        <p id="gameOverText"></p>
+        <button onclick="restart()">Restart</button>
+        <button onclick="closeGameOverModal()">Close</button>
     </div>
-  </div>
+</div>
 
-  <!-- Game Over Modal -->
-  <div id="gameOverModal" class="modal">
-    <div class="modal-content">
-      <h2>Game Over</h2>
-      <p>Your Score: <span id="finalScore">0</span></p>
-      <input type="text" id="playerName" placeholder="Enter your name"/>
-      <button onclick="submitScore()">Submit Score</button>
-    </div>
-  </div>
-
-  <script>
+<script>
     let score = 0, health = 3, timeLeft = 60;
     let ghostCount = 0;
     let gameInterval, ghostTimeout, currentGhost;
+    let countdownOverlay, backgroundAudio, gunshotSound, hitSound, bonusSound, healthLossSound, gameOverSound, countdownSound;
+    let playerName = '';
+    let highScore = getCookie('ghost_high_score') || 0;
 
     const gameArea = document.getElementById('gameArea');
+    const gameOverModal = document.getElementById('gameOverModal');
+    const gameOverText = document.getElementById('gameOverText');
+    const nameModal = document.getElementById('nameModal');
+    const playerNameInput = document.getElementById('playerNameInput');
+
+    // Preload sounds
+    backgroundAudio = new Audio('sounds/background.mp3');
+    backgroundAudio.loop = true;
+    gunshotSound = new Audio('sounds/gunshot.mp3');
+    hitSound = new Audio('sounds/hit.wav');
+    bonusSound = new Audio('sounds/bonus.mp3');
+    healthLossSound = new Audio('sounds/health_loss.mp3');
+    gameOverSound = new Audio('sounds/gameover.mp3');
+    countdownSound = new Audio('sounds/123Go.mp3');
+
+    // Countdown overlay element
+    countdownOverlay = document.createElement('div');
+    countdownOverlay.id = 'countdownOverlay';
+    countdownOverlay.style.position = 'absolute';
+    countdownOverlay.style.top = '50%';
+    countdownOverlay.style.left = '50%';
+    countdownOverlay.style.transform = 'translate(-50%, -50%)';
+    countdownOverlay.style.fontSize = '6rem';
+    countdownOverlay.style.color = '#fff';
+    countdownOverlay.style.zIndex = '999';
+    countdownOverlay.style.display = 'none';
+    countdownOverlay.style.fontWeight = 'bold';
+    countdownOverlay.style.textShadow = '2px 2px 4px black';
+    gameArea.appendChild(countdownOverlay);
+
+    // Add start button
+    const startBtn = document.createElement('button');
+    startBtn.id = 'startBtn';
+    startBtn.textContent = 'Start Game';
+    startBtn.style.position = 'absolute';
+    startBtn.style.top = '50%';
+    startBtn.style.left = '50%';
+    startBtn.style.transform = 'translate(-50%, -50%)';
+    startBtn.style.fontSize = '2rem';
+    startBtn.style.padding = '1rem 2rem';
+    startBtn.style.background = '#ff69b4';
+    startBtn.style.border = 'none';
+    startBtn.style.color = '#fff';
+    startBtn.style.borderRadius = '10px';
+    startBtn.style.cursor = 'pointer';
+    startBtn.style.zIndex = '100';
+    gameArea.appendChild(startBtn);
+
+    startBtn.onclick = () => {
+        startBtn.style.display = 'none'; // Hide start button on click
+        startCountdown();
+    };
+
+    function restart() {
+        startBtn.style.display = 'none';
+        gameOverModal.style.display = 'none';
+        startCountdown();
+    }
+
+    function startCountdown() {
+        let count = 3;
+        startBtn.style.display = 'none'; // Ensure start button is hidden
+        countdownOverlay.style.display = 'block';
+        setTimeout(() => {
+            countdownSound.play();
+        }, 1000);
+
+        const countdownInterval = setInterval(() => {
+            if (count > 0) {
+                countdownOverlay.textContent = count;
+                count--;
+            } else {
+                countdownOverlay.textContent = 'GO!';
+                clearInterval(countdownInterval);
+                setTimeout(() => {
+                    countdownOverlay.style.display = 'none';
+                    startGamePlay();
+                }, 1000);
+            }
+        }, 1000);
+    }
 
     function startGame() {
-      score = 0;
-      health = 3;
-      timeLeft = 60;
-      ghostCount = 0;
-      currentGhost = null;
+        score = 0;
+        health = 3;
+        timeLeft = 60;
+        ghostCount = 0;
+        currentGhost = null;
 
-      updateHearts();
-      document.getElementById('score').textContent = score;
-      document.getElementById('time').textContent = timeLeft;
-      document.getElementById('gameOverModal').style.display = 'none';
-      document.getElementById('playerName').value = '';
-      gameArea.innerHTML = '';
+        updateHearts();
+        document.getElementById('score').textContent = score;
+        document.getElementById('time').textContent = timeLeft;
+        gameOverModal.style.display = 'none';
+        gameArea.innerHTML = '';
+        gameArea.appendChild(startBtn);
+        gameArea.appendChild(countdownOverlay);
+        startBtn.style.display = 'block'; // Make sure start button is visible when game starts.
+        playerName = getCookie('ghost_player_name') || '';
+        // Removed the call to toggleModal('nameModal');
+        // startCountdown(); // start countdown  <-- REMOVE THIS LINE
+    }
 
-      clearInterval(gameInterval);
-      clearTimeout(ghostTimeout);
+    function startGamePlay() {
+        clearInterval(gameInterval);
+        clearTimeout(ghostTimeout);
 
-      gameInterval = setInterval(gameLoop, 1000);
-      spawnGhost();
+        // Reset score, health, and time here as well
+        score = 0;
+        health = 3;
+        timeLeft = 60;
+
+        updateHearts();
+        document.getElementById('score').textContent = score;
+        document.getElementById('time').textContent = timeLeft;
+
+
+        backgroundAudio.currentTime = 0;
+        backgroundAudio.play();
+
+        gameInterval = setInterval(gameLoop, 1000);
+        spawnGhost();
     }
 
     function gameLoop() {
-      timeLeft--;
-      document.getElementById('time').textContent = timeLeft;
-      if (timeLeft <= 0 || health <= 0) endGame();
+        timeLeft--;
+        document.getElementById('time').textContent = timeLeft;
+        if (timeLeft <= 0 || health <= 0) endGame();
     }
 
     function spawnGhost() {
-      if (currentGhost && gameArea.contains(currentGhost)) {
-        gameArea.removeChild(currentGhost);
-      }
-
-      ghostCount++;
-      const ghost = document.createElement('div');
-      ghost.className = 'ghost';
-      if (ghostCount % 6 === 0) ghost.classList.add('bonus');
-
-      const maxTop = gameArea.clientHeight - 60;
-      const maxLeft = gameArea.clientWidth - 60;
-      ghost.style.top = Math.random() * maxTop + 'px';
-      ghost.style.left = Math.random() * maxLeft + 'px';
-
-      ghost.onclick = function (e) {
-        e.stopPropagation();
-        score += ghost.classList.contains('bonus') ? 30 : 10;
-        document.getElementById('score').textContent = score;
-        gameArea.removeChild(ghost);
-        currentGhost = null;
-        if (timeLeft > 0 && health > 0) spawnGhost();
-      };
-
-      gameArea.appendChild(ghost);
-      currentGhost = ghost;
-
-      ghostTimeout = setTimeout(() => {
-        if (gameArea.contains(ghost)) {
-          gameArea.removeChild(ghost);
-          health--;
-          updateHearts();
-          if (health <= 0) endGame();
-          else spawnGhost();
+        if (currentGhost && gameArea.contains(currentGhost)) {
+            gameArea.removeChild(currentGhost);
         }
-      }, 2000);
+
+        ghostCount++;
+        const ghost = document.createElement('div');
+        ghost.className = 'ghost';
+        if (ghostCount % 6 === 0) ghost.classList.add('bonus');
+
+        const maxTop = gameArea.clientHeight - 60;
+        const maxLeft = gameArea.clientWidth - 60;
+        ghost.style.top = Math.random() * maxTop + 'px';
+        ghost.style.left = Math.random() * maxLeft + 'px';
+
+        ghost.onclick = function (e) {
+            e.stopPropagation();
+            gunshotSound.play();
+            const isBonus = ghost.classList.contains('bonus');
+            score += isBonus ? 30 : 10;
+            isBonus ? bonusSound.play() : hitSound.play();
+            document.getElementById('score').textContent = score;
+            gameArea.removeChild(ghost);
+            currentGhost = null;
+            if (timeLeft > 0 && health > 0) spawnGhost();
+        };
+
+        gameArea.appendChild(ghost);
+        currentGhost = ghost;
+
+        ghostTimeout = setTimeout(() => {
+            if (gameArea.contains(ghost)) {
+                gameArea.removeChild(ghost);
+                health--;
+                healthLossSound.play();
+                updateHearts();
+                if (health <= 0) endGame();
+                else spawnGhost();
+            }
+        }, 2000);
     }
 
     function endGame() {
-      clearInterval(gameInterval);
-      clearTimeout(ghostTimeout);
-      if (currentGhost && gameArea.contains(currentGhost)) {
-        gameArea.removeChild(currentGhost);
-      }
-      currentGhost = null;
-      document.getElementById('finalScore').textContent = score;
-      document.getElementById('gameOverModal').style.display = 'flex';
+        clearInterval(gameInterval);
+        clearTimeout(ghostTimeout);
+        if (currentGhost && gameArea.contains(currentGhost)) {
+            gameArea.removeChild(currentGhost);
+        }
+        currentGhost = null;
+        backgroundAudio.pause();
+        gameOverSound.play();
+
+        if (score > highScore) {
+            highScore = score;
+            setCookie('ghost_high_score', highScore, 30);
+        }
+
+        gameOverText.innerHTML = `
+            <p>Your Score: ${score}</p>
+            <p>High Score: ${highScore}</p>
+        `;
+        gameOverModal.style.display = 'flex';
+        startBtn.style.display = 'block';
     }
 
-    function submitScore() {
-      const name = document.getElementById('playerName').value.trim();
-      if (!name) return alert("Enter your name!");
-      const scores = JSON.parse(localStorage.getItem('ghost_scores') || '[]');
-      scores.push({ name, score });
-      scores.sort((a, b) => b.score - a.score);
-      localStorage.setItem('ghost_scores', JSON.stringify(scores.slice(0, 5)));
-      document.getElementById('gameOverModal').style.display = 'none';
-      renderLeaderboard();
-    }
-
-    function renderLeaderboard() {
-      const scores = JSON.parse(localStorage.getItem('ghost_scores') || '[]');
-      const board = document.getElementById('leaderboard');
-      board.innerHTML = '';
-      scores.forEach((entry, i) => {
-        const li = document.createElement('li');
-        li.textContent = `${i + 1}. ${entry.name} - ${entry.score} pts`;
-        board.appendChild(li);
-      });
+    function closeGameOverModal() {
+        gameOverModal.style.display = 'none';
+        resetGame();
     }
 
     function toggleModal(id) {
-      const modal = document.getElementById(id);
-      modal.style.display = modal.style.display === 'flex' ? 'none' : 'flex';
+        const modal = document.getElementById(id);
+        modal.style.display = modal.style.display === 'flex' ? 'none' : 'flex';
     }
 
     function updateHearts() {
-      document.getElementById('hearts').src = `/images/heart-${health}.png`;
+        document.getElementById('hearts').src = `/images/heart-${health}.png`;
     }
 
-    renderLeaderboard();
-  </script>
+    gameArea.onclick = function (e) {
+        if (e.target.classList.contains('ghost')) return;
+        gunshotSound.play();
+        health--;
+        healthLossSound.play();
+        updateHearts();
+        if (health <= 0) endGame();
+    };
 
+    function setCookie(name, value, days) {
+        let expires = "";
+        if (days) {
+            const date = new Date();
+            date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+            expires = "; expires=" + date.toUTCString();
+        }
+        document.cookie = name + "=" + (value || "") + expires + "; path=/";
+    }
+
+    function getCookie(name) {
+        const nameEQ = name + "=";
+        const ca = document.cookie.split(';');
+        for (let i = 0; i < ca.length; i++) {
+            let c = ca[i];
+            while (c.charAt(0) === ' ') {
+                c = c.substring(1, c.length);
+            }
+            if (c.indexOf(nameEQ) === 0) {
+                return c.substring(nameEQ.length, c.length);
+            }
+        }
+        return null;
+    }
+
+
+    function resetGame() {
+        score = 0;
+        health = 3;
+        timeLeft = 60;
+        ghostCount = 0;
+        currentGhost = null;
+
+        updateHearts();
+        document.getElementById('score').textContent = score;
+        document.getElementById('time').textContent = timeLeft;
+        gameOverModal.style.display = 'none';
+        gameArea.innerHTML = '';
+        gameArea.appendChild(startBtn);
+        gameArea.appendChild(countdownOverlay);
+        startBtn.style.display = 'block';
+        playerNameInput.value = '';
+        playerName = '';
+        setCookie('ghost_player_name', '', 30);
+        clearInterval(gameInterval);
+        clearTimeout(ghostTimeout);
+        backgroundAudio.pause();
+        startBtn.style.display = 'block';
+        startGame();
+    }
+
+</script>
 </body>
 </html>

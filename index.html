@@ -4,6 +4,10 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Ghost Hunter</title>
+
+  <!-- Google Font for Funky Game Style -->
+  <link href="https://fonts.googleapis.com/css2?family=Creepster&display=swap" rel="stylesheet">
+
   <style>
     * {
       margin: 0;
@@ -18,11 +22,10 @@
       overflow-x: hidden;
     }
 
-    /* Hero Section */
     .hero {
       height: 100vh;
       width: 100%;
-      background: url('background.jpg') center/cover no-repeat;
+      background: url('/images/Hbg.jpg') center/cover no-repeat;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -32,9 +35,11 @@
     }
 
     .hero h1 {
-      font-size: 4rem;
+      font-family: 'Creepster', cursive;
+      font-size: 5rem;
       margin-bottom: 1rem;
       color: #ff4f4f;
+      text-shadow: 2px 2px 8px #000;
     }
 
     .hero button {
@@ -46,13 +51,13 @@
       cursor: pointer;
       color: #fff;
       transition: background 0.3s;
+      box-shadow: 0 0 10px #ff1e1e;
     }
 
     .hero button:hover {
       background: #ff1e1e;
     }
 
-    /* Leaderboard Section */
     .leaderboard {
       padding: 4rem 2rem;
       background: #1c1c1c;
@@ -60,8 +65,10 @@
     }
 
     .leaderboard h2 {
-      font-size: 2.5rem;
+      font-family: 'Creepster', cursive;
+      font-size: 2.8rem;
       margin-bottom: 2rem;
+      color: #ff4f4f;
     }
 
     .leaderboard ul {
@@ -81,7 +88,6 @@
       font-size: 1.2rem;
     }
 
-    /* About Section */
     .about {
       padding: 4rem 2rem;
       background: #121212;
@@ -89,8 +95,10 @@
     }
 
     .about h2 {
-      font-size: 2.5rem;
+      font-family: 'Creepster', cursive;
+      font-size: 2.8rem;
       margin-bottom: 1rem;
+      color: #ff4f4f;
     }
 
     .about p {
@@ -100,7 +108,6 @@
       line-height: 1.6;
     }
 
-    /* Footer */
     footer {
       padding: 1.5rem;
       background: #0a0a0a;
@@ -108,7 +115,6 @@
       color: #888;
       font-size: 0.9rem;
     }
-
   </style>
 </head>
 <body>
@@ -121,16 +127,15 @@
 
   <!-- Leaderboard -->
   <section class="leaderboard">
-  <h2>Top 5 Players</h2>
-  <ul id="leaderboard-list">
-    <li><span>#1 Player1</span><span>150</span></li>
-    <li><span>#2 Player2</span><span>140</span></li>
-    <li><span>#3 Player3</span><span>130</span></li>
-    <li><span>#4 Player4</span><span>120</span></li>
-    <li><span>#5 Player5</span><span>110</span></li>
-  </ul>
-</section>
-
+    <h2>Top 5 Players</h2>
+    <ul id="leaderboard-list">
+      <li><span>#1 Player1</span><span>150</span></li>
+      <li><span>#2 Player2</span><span>140</span></li>
+      <li><span>#3 Player3</span><span>130</span></li>
+      <li><span>#4 Player4</span><span>120</span></li>
+      <li><span>#5 Player5</span><span>110</span></li>
+    </ul>
+  </section>
 
   <!-- About Game -->
   <section class="about">
