@@ -12,14 +12,14 @@ let score = 0, health = 3, timeLeft = 60;
     const playerNameInput = document.getElementById('playerNameInput');
 
     // Preload sounds
-    backgroundAudio = new Audio('sounds/background.mp3');
+    backgroundAudio = new Audio('../sounds/background.mp3');
     backgroundAudio.loop = true;
-    gunshotSound = new Audio('sounds/gunshot.mp3');
-    hitSound = new Audio('sounds/hit.wav');
-    bonusSound = new Audio('sounds/bonus.wav');
-    healthLossSound = new Audio('sounds/health_loss.mp3');
-    gameOverSound = new Audio('sounds/gameover.mp3');
-    countdownSound = new Audio('sounds/123Go.mp3');
+    gunshotSound = new Audio('../sounds/gunshot.mp3');
+    hitSound = new Audio('../sounds/hit.wav');
+    bonusSound = new Audio('../sounds/bonus.wav');
+    healthLossSound = new Audio('../sounds/health_loss.mp3');
+    gameOverSound = new Audio('../sounds/gameover.mp3');
+    countdownSound = new Audio('../sounds/123Go.mp3');
 
     // Countdown overlay element
     countdownOverlay = document.createElement('div');
