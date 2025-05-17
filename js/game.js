@@ -103,9 +103,6 @@ let score = 0, health = 3, timeLeft = 60;
         gameArea.appendChild(startBtn);
         gameArea.appendChild(countdownOverlay);
         startBtn.style.display = 'block'; // Make sure start button is visible when game starts.
-        playerName = getCookie('ghost_player_name') || '';
-        // Removed the call to toggleModal('nameModal');
-        // startCountdown(); // start countdown  <-- REMOVE THIS LINE
     }
 
     function startGamePlay() {
@@ -265,6 +262,7 @@ let score = 0, health = 3, timeLeft = 60;
         ghostCount = 0;
         currentGhost = null;
 
+        addEventListener();
         updateHearts();
         document.getElementById('score').textContent = score;
         document.getElementById('time').textContent = timeLeft;
@@ -282,3 +280,23 @@ let score = 0, health = 3, timeLeft = 60;
         startBtn.style.display = 'block';
         startGame();
     }
+    const customCursor = document.createElement('img');
+        customCursor.src = 'https://i.ibb.co/23Dc5XbQ/Pointer.png'; // 🔁 Use your custom image here
+        customCursor.id = 'customCursor';
+        customCursor.style.position = 'absolute';
+        customCursor.style.width = '80px'; // Adjust size
+        customCursor.style.height = '80px';
+        customCursor.style.pointerEvents = 'none';
+        customCursor.style.zIndex = '9999';
+        customCursor.style.transform = 'translate(-50%, -50%)';
+        gameArea.appendChild(customCursor);
+
+// Move cursor with mouse inside gameArea
+        gameArea.addEventListener('mousemove', function (e) {
+            const rect = gameArea.getBoundingClientRect();
+            customCursor.style.left = (e.clientX - rect.left) + 'px';
+            customCursor.style.top = (e.clientY - rect.top) + 'px';
+        });
+
+        
+

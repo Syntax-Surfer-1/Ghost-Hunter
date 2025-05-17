@@ -62,6 +62,8 @@
             border: 2px solid #333;
             border-radius: 12px;
             overflow: hidden;
+            cursor: none;
+            position: relative;
         }
 
         .ghost {
@@ -72,10 +74,15 @@
             background-size: contain;
             animation: fadeOut 2s forwards;
             cursor: pointer;
+            cursor: none;
+            transition: transform 0.2s ease;
+        }
+        .ghost:hover {
+            transform: scale(1.2);
         }
 
         .bonus {
-            background: url('https://i.ibb.co/s9gVn1m/bonus-ghost.png') no-repeat center/contain;
+            background: url('https://i.ibb.co/nsgHnDCZ/G2.png') no-repeat center/contain;
             background-size: contain;
         }
 
@@ -130,6 +137,8 @@
             background-color: #1a254d;
             color: white;
         }
+        
+
 
         @media (max-width: 600px) {
             nav h1 {

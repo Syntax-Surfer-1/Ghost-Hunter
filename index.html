@@ -1,31 +1,84 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Ghost Hunter</title>
 
-  <!-- Google Font for Funky Game Style -->
-  <link href="https://fonts.googleapis.com/css2?family=Creepster&display=swap" rel="stylesheet">
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet" />
 
   <style>
+    :root {
+      --dark-1: #0a0f2c;
+      --dark-2: #10193a;
+      --dark-3: #142042;
+      --dark-4: #152246;
+      --highlight: #ff4f4f;
+      --text-light: #e0e0e0;
+    }
+
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
-      font-family: 'Segoe UI', sans-serif;
+      font-family: 'Press Start 2P', monospace;
+      scroll-behavior: smooth;
     }
 
     body {
-      background: #0f0f0f;
-      color: #fff;
+      background: var(--dark-1);
+      color: var(--text-light);
       overflow-x: hidden;
+      line-height: 1.6;
     }
 
+    a {
+      color: var(--highlight);
+      text-decoration: none;
+    }
+
+    /* Animations */
+    @keyframes fadeSlideUp {
+      0% {
+        opacity: 0;
+        transform: translateY(40px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* @keyframes pulseGlow {
+      0%, 100% {
+        text-shadow:
+          0 0 6px var(--highlight),
+          0 0 12px var(--highlight),
+          0 0 18px var(--highlight);
+      }
+      50% {
+        text-shadow:
+          0 0 12px var(--highlight),
+          0 0 24px var(--highlight),
+          0 0 36px var(--highlight);
+      }
+    } */
+
+    @keyframes glowPulse {
+      0%, 100% {
+        box-shadow: 0 0 15px var(--highlight);
+      }
+      50% {
+        box-shadow: 0 0 30px var(--highlight);
+      }
+    }
+
+    /* Hero Section */
     .hero {
       height: 100vh;
-      width: 100%;
-      background: url('https://i.ibb.co/q3TYq971/Hbg.jpg') center/cover no-repeat;
+      background: linear-gradient(rgba(10, 15, 44, 0.6), rgba(20, 32, 66, 0.7)),
+        url('https://i.ibb.co/q3TYq971/Hbg.jpg') center/cover no-repeat;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -35,120 +88,204 @@
     }
 
     .hero h1 {
-      font-family: 'Creepster', cursive;
-      font-size: 5rem;
-      margin-bottom: 1rem;
-      color: #ff4f4f;
-      text-shadow: 2px 2px 8px #000;
+      font-size: 3rem;
+      color: var(--highlight);
+      text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.8);
+      margin-bottom: 2rem;
+      animation: fadeSlideUp 1s ease forwards;
+      animation-delay: 0.3s;
+      animation-fill-mode: forwards;
+      animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+      animation-play-state: running;
+      animation-iteration-count: 1;
+      animation-direction: normal;
+      animation-fill-mode: forwards;
+      animation-delay: 0.3s;
     }
 
     .hero button {
-      font-size: 1.5rem;
-      padding: 0.75rem 2rem;
-      background: #ff4f4f;
+      font-size: 1rem;
+      padding: 1rem 2rem;
+      background: var(--highlight);
       border: none;
-      border-radius: 8px;
-      cursor: pointer;
+      border-radius: 6px;
       color: #fff;
-      transition: background 0.3s;
-      box-shadow: 0 0 10px #ff1e1e;
+      cursor: pointer;
+      box-shadow: 0 0 15px var(--highlight);
+      transition: transform 0.3s ease, background 0.3s ease;
+      animation: fadeSlideUp 1s ease forwards;
+      animation-delay: 0.6s;
     }
 
     .hero button:hover {
       background: #ff1e1e;
+      transform: scale(1.05);
+      animation: glowPulse 1.5s infinite alternate;
     }
 
-    .leaderboard {
-      padding: 4rem 2rem;
-      background: #1c1c1c;
-      text-align: center;
-    }
-
-    .leaderboard h2 {
-      font-family: 'Creepster', cursive;
-      font-size: 2.8rem;
-      margin-bottom: 2rem;
-      color: #ff4f4f;
-    }
-
-    .leaderboard ul {
-      list-style: none;
-      max-width: 500px;
-      margin: auto;
-      padding: 0;
-    }
-
-    .leaderboard li {
-      background: #292929;
-      padding: 1rem;
-      margin: 0.5rem 0;
-      border-radius: 6px;
-      display: flex;
-      justify-content: space-between;
-      font-size: 1.2rem;
-    }
-
+    /* About Section */
     .about {
+      background: var(--dark-2);
       padding: 4rem 2rem;
-      background: #121212;
       text-align: center;
     }
 
     .about h2 {
-      font-family: 'Creepster', cursive;
-      font-size: 2.8rem;
-      margin-bottom: 1rem;
+      font-size: 1.5rem;
+      color: var(--highlight);
+      margin-bottom: 3rem;
+      animation: pulseGlow 3s ease-in-out infinite;
+    }
+
+    .about-section {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 2rem;
+      max-width: 1000px;
+      margin: 2rem auto;
+      text-align: left;
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+
+    .about-section.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .about-section.reverse {
+      flex-direction: row-reverse;
+    }
+
+    .about-section img {
+      width: 300px;
+      border-radius: 12px;
+      /* box-shadow: 0 0 15px #000; */
+      transition: transform 0.3s ease;
+    }
+
+    .about-section img:hover {
+      transform: scale(1.05);
+    }
+
+    .about-section div {
+      flex: 1;
+      min-width: 280px;
+    }
+
+    .about-section h3 {
+      font-size: 1rem;
       color: #ff4f4f;
+      margin-bottom: 1rem;
+      animation: pulseGlow 3s ease-in-out infinite;
     }
 
-    .about p {
-      max-width: 700px;
-      margin: auto;
-      font-size: 1.1rem;
-      line-height: 1.6;
+    .about-section p,
+    .about-section li {
+      font-size: 0.75rem;
+      color: #ddd;
+      margin-bottom: 1rem;
     }
 
+    .about-section ul {
+      padding-left: 1.5rem;
+    }
+
+    /* Footer */
     footer {
-      padding: 1.5rem;
-      background: #0a0a0a;
+      padding: 2rem;
+      background: var(--dark-4);
       text-align: center;
       color: #888;
-      font-size: 0.9rem;
+      font-size: 0.7rem;
     }
   </style>
 </head>
 <body>
 
   <!-- Hero -->
-  <section class="hero">
-    <h1>Ghost Hunter</h1>
-    <button onclick="window.location.href='game.html'">Start Game</button>
+  <section class="hero" id="hero">
+    <h1>GHOST HUNTER</h1>
+    <button onclick="window.location.href='game.html'">START GAME</button>
   </section>
 
-  <!-- Leaderboard -->
-  <section class="leaderboard">
-    <h2>Top 5 Players</h2>
-    <ul id="leaderboard-list">
-      <li><span>#1 Player1</span><span>150</span></li>
-      <li><span>#2 Player2</span><span>140</span></li>
-      <li><span>#3 Player3</span><span>130</span></li>
-      <li><span>#4 Player4</span><span>120</span></li>
-      <li><span>#5 Player5</span><span>110</span></li>
-    </ul>
-  </section>
-
-  <!-- About Game -->
+  <!-- About -->
   <section class="about">
-    <h2>About the Game</h2>
-    <p>
-      Tap the ghosts to earn 10 points each. Every 6 ghosts you destroy, a special ghost appears worth 30 points. Be quick and accurate to climb the leaderboard!
-    </p>
+    <h2>ABOUT THE GAME</h2>
+
+    <!-- Intro -->
+    <div class="about-section">
+      <img src="https://i.ibb.co/q3TYq971/Hbg.jpg" alt="Ghost Hunter Screenshot">
+      <div>
+        <h3>🧟 WHAT IS GHOST HUNTER?</h3>
+        <p>
+          A fast-paced reflex game where ghosts randomly appear — your mission: <strong>click them before they disappear!</strong><br><br>
+          You get <strong>60 seconds</strong> and <strong>3 hearts</strong>. Miss a ghost, lose a heart. Lose all or run out of time? Game over!
+        </p>
+      </div>
+    </div>
+
+    <!-- Mechanics -->
+    <div class="about-section reverse">
+  <div style="display: flex; flex-direction: row; gap: 1.5rem; justify-content: center; align-items: center; ">
+    <div style="text-align: center;min-width: 100px;">
+      <img src="/images/G1.png" alt="Regular Ghost" style="width: 150px; border-radius: 8px; box-shadow: 0 0 5px #000; ">
+      <p style="margin-top: 1.5rem; color: #ffffff;">10-POINTS</p>
+    </div>
+    <div style="text-align: center;min-width: 100px;">
+      <img src="/images/G2.png" alt="Golden Ghost" style="width: 150px; border-radius: 8px; box-shadow: 0 0 5px #000; ">
+      <p style="margin-top: 1.5rem; color: #d6a441;">30-POINTS</p>
+    </div>
+  </div>
+  <div>
+    <h3>🎯 SCORING & STRATEGY</h3>
+    <ul>
+      <li>👻 Regular ghost = +10 points</li>
+      <li>🌟 Golden ghost = +30 points</li>
+      <li>❌ Missed ghost = -1 heart</li>
+    </ul>
+    <p>💡 Tip: Golden ghosts appear every 6 ghosts — be ready!</p>
+  </div>
+</div>
+
+
+    <!-- Instructions -->
+    <div class="about-section" style="flex-direction: column; align-items: center; text-align: center;">
+      <div>
+        <h3>🕹️ HOW TO PLAY</h3>
+        <ul style="list-style: none; padding: 0;">
+          <li>Click "START GAME"</li>
+          <li>Tap ghosts to score points</li>
+          <li>Avoid missing — each miss costs a heart</li>
+          <li>Try to beat your high score before time runs out</li>
+        </ul>
+        <p><a href="#hero">Good luck, hunter!</a></p>
+      </div>
+    </div>
   </section>
 
   <!-- Footer -->
   <footer>
-    &copy; 2025 Ghost Hunter | Built for Hackathon
+    &copy; 2025 GHOST HUNTER | Created by <a href="https://github.com/Syntax-Surfer-1">Syntax-Surfer</a>
   </footer>
 
+  <script>
+    // Animate about sections when they scroll into view
+    const aboutSections = document.querySelectorAll('.about-section');
+
+    function revealSections() {
+      aboutSections.forEach(section => {
+        const rect = section.getBoundingClientRect();
+        if (rect.top < window.innerHeight - 100) {
+          section.classList.add('visible');
+        }
+      });
+    }
+
+    window.addEventListener('scroll', revealSections);
+    window.addEventListener('load', revealSections);
+  </script>
 </body>
 </html>
