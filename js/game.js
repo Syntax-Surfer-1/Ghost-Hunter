@@ -12,14 +12,14 @@ let score = 0, health = 3, timeLeft = 60;
     const playerNameInput = document.getElementById('playerNameInput');
 
     // Preload sounds
-    backgroundAudio = new Audio('sounds/background.mp3');
+    backgroundAudio = new Audio('/sounds/background.mp3');
     backgroundAudio.loop = true;
-    gunshotSound = new Audio('sounds/gunshot.mp3');
-    hitSound = new Audio('sounds/hit.wav');
-    bonusSound = new Audio('sounds/bonus.mp3');
-    healthLossSound = new Audio('sounds/health_loss.mp3');
-    gameOverSound = new Audio('sounds/gameover.mp3');
-    countdownSound = new Audio('sounds/123Go.mp3');
+    gunshotSound = new Audio('/sounds/gunshot.mp3');
+    hitSound = new Audio('/sounds/hit.wav');
+    bonusSound = new Audio('/sounds/bonus.wav');
+    healthLossSound = new Audio('/sounds/health_loss.mp3');
+    gameOverSound = new Audio('/sounds/gameover.mp3');
+    countdownSound = new Audio('/sounds/123Go.mp3');
 
     // Countdown overlay element
     countdownOverlay = document.createElement('div');
@@ -55,7 +55,7 @@ let score = 0, health = 3, timeLeft = 60;
     gameArea.appendChild(startBtn);
 
     startBtn.onclick = () => {
-        startBtn.style.display = 'none'; // Hide start button on click
+        startBtn.style.display = 'none'; 
         startCountdown();
     };
 
@@ -67,7 +67,7 @@ let score = 0, health = 3, timeLeft = 60;
 
     function startCountdown() {
         let count = 3;
-        startBtn.style.display = 'none'; // Ensure start button is hidden
+        startBtn.style.display = 'none'; 
         countdownOverlay.style.display = 'block';
         setTimeout(() => {
             countdownSound.play();
@@ -102,14 +102,13 @@ let score = 0, health = 3, timeLeft = 60;
         gameArea.innerHTML = '';
         gameArea.appendChild(startBtn);
         gameArea.appendChild(countdownOverlay);
-        startBtn.style.display = 'block'; // Make sure start button is visible when game starts.
+        startBtn.style.display = 'block'; 
     }
 
     function startGamePlay() {
         clearInterval(gameInterval);
         clearTimeout(ghostTimeout);
 
-        // Reset score, health, and time here as well
         score = 0;
         health = 3;
         timeLeft = 60;
@@ -171,7 +170,7 @@ let score = 0, health = 3, timeLeft = 60;
                 if (health <= 0) endGame();
                 else spawnGhost();
             }
-        }, 1000);
+        }, 1200);
     }
 
     function endGame() {
@@ -281,10 +280,10 @@ let score = 0, health = 3, timeLeft = 60;
         startGame();
     }
     const customCursor = document.createElement('img');
-        customCursor.src = 'https://i.ibb.co/23Dc5XbQ/Pointer.png'; // 🔁 Use your custom image here
+        customCursor.src = 'https://i.ibb.co/23Dc5XbQ/Pointer.png';
         customCursor.id = 'customCursor';
         customCursor.style.position = 'absolute';
-        customCursor.style.width = '80px'; // Adjust size
+        customCursor.style.width = '80px'; 
         customCursor.style.height = '80px';
         customCursor.style.pointerEvents = 'none';
         customCursor.style.zIndex = '9999';

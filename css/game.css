@@ -75,7 +75,7 @@
             height: 100px;
             background: url('https://i.ibb.co/v6q5RmzS/G1.png') no-repeat center/contain;
             background-size: contain;
-            animation: fadeOut 1s forwards;
+            animation: fadeOut 1.2s forwards;
             cursor: pointer;
             cursor: none;
             transition: transform 0.2s ease;
@@ -102,15 +102,15 @@
     position: fixed;
     inset: 0;
     display: none;
-    background: rgba(0, 0, 0, 0.7); /* slightly lighter for clarity */
+    background: rgba(0, 0, 0, 0.7); 
     justify-content: center;
     align-items: center;
     z-index: 1000;
-    backdrop-filter: blur(4px); /* subtle blur for background */
+    backdrop-filter: blur(4px);
 }
 
 .modal-content {
-    background: #1e2a55; /* richer dark blue */
+    background: #1e2a55; 
     color: #fff;
     padding: 30px 25px;
     width: 90%;
@@ -132,7 +132,6 @@
     font-weight: 600;
 }
 
-/* Optional animation */
 @keyframes popIn {
     0% {
         transform: scale(0.9);
