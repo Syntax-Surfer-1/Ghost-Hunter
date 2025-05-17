@@ -211,7 +211,16 @@ let score = 0, health = 3, timeLeft = 60;
     }
 
     function updateHearts() {
-        document.getElementById('hearts').src = `/images/heart-${health}.png`;
+        if (health === 3) {
+            imgSrc = 'https://i.ibb.co/hRQPthYR/heart-3.png';
+        } else if (health === 2) {
+            imgSrc = 'https://i.ibb.co/LD8W985Q/heart-2.png';
+        } else if (health === 1) {
+            imgSrc = 'https://i.ibb.co/2Y83TVhp/heart-1.png';
+        } else {
+            imgSrc = 'https://i.ibb.co/KzSxdvsb/heart-0.png';
+        }   
+        document.getElementById('hearts').src = imgSrc;
     }
 
     gameArea.onclick = function (e) {
