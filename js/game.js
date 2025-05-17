@@ -12,7 +12,7 @@ let score = 0, health = 3, timeLeft = 60;
     const playerNameInput = document.getElementById('playerNameInput');
 
     // Preload sounds
-    backgroundAudio = new Audio('./sounds/background.mp3');
+    backgroundAudio = new Audio('https://syntax-surfer-1.github.io/Ghost-Hunter/sounds/background.mp3');
     backgroundAudio.loop = true;
     gunshotSound = new Audio('./sounds/gunshot.mp3');
     hitSound = new Audio('/sounds/hit.wav');
