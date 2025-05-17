@@ -1,8 +1,9 @@
-let score = 0, health = 3, timeLeft = 60;
+    let score = 0, health = 3, timeLeft = 60;
     let ghostCount = 0;
     let gameInterval, ghostTimeout, currentGhost;
     let countdownOverlay, backgroundAudio, gunshotSound, hitSound, bonusSound, healthLossSound, gameOverSound, countdownSound;
     let playerName = '';
+    let isMuted = false;
     let highScore = getCookie('ghost_high_score') || 0;
 
     const gameArea = document.getElementById('gameArea');
@@ -10,6 +11,8 @@ let score = 0, health = 3, timeLeft = 60;
     const gameOverText = document.getElementById('gameOverText');
     const nameModal = document.getElementById('nameModal');
     const playerNameInput = document.getElementById('playerNameInput');
+    const muteBtn = document.getElementById('muteBtn');
+    const muteIcon = document.getElementById('muteIcon');
 
     // Preload sounds
     backgroundAudio = new Audio('https://syntax-surfer-1.github.io/Ghost-Hunter/sounds/background.mp3');
@@ -35,6 +38,59 @@ let score = 0, health = 3, timeLeft = 60;
     countdownOverlay.style.fontWeight = 'bold';
     countdownOverlay.style.textShadow = '2px 2px 4px black';
     gameArea.appendChild(countdownOverlay);
+
+
+    muteBtn.addEventListener('click', () => {
+    isMuted = !isMuted;
+
+    localStorage.setItem('ghost_isMuted', isMuted ? 'true' : 'false');
+
+    // Mute or unmute all sounds
+    backgroundAudio.muted = isMuted;
+    gunshotSound.muted = isMuted;
+    hitSound.muted = isMuted;
+    bonusSound.muted = isMuted;
+    healthLossSound.muted = isMuted;
+    gameOverSound.muted = isMuted;
+    countdownSound.muted = isMuted;
+
+    // Optionally change icon to reflect mute state
+    if (isMuted) {
+        muteIcon.src = 'images/speaker-unmute.svg'; // Replace with your mute icon path
+        muteIcon.alt = 'Muted';
+    } else {
+        muteIcon.src = 'images/speaker-mute.svg'; // Original icon
+        muteIcon.alt = 'Speaker Icon';
+    }
+});
+
+window.addEventListener('load', () => {
+    const savedMute = localStorage.getItem('ghost_isMuted');
+    isMuted = savedMute === 'true';
+
+    // Apply the saved mute state to all audio elements
+    backgroundAudio.muted = isMuted;
+    gunshotSound.muted = isMuted;
+    hitSound.muted = isMuted;
+    bonusSound.muted = isMuted;
+    healthLossSound.muted = isMuted;
+    gameOverSound.muted = isMuted;
+    countdownSound.muted = isMuted;
+
+    // Set mute icon accordingly
+    if (isMuted) {
+        muteIcon.src = 'images/speaker-unmute.svg';
+        muteIcon.alt = 'Muted';
+    } else {
+        muteIcon.src = 'images/speaker-mute.svg';
+        muteIcon.alt = 'Speaker Icon';
+    }
+
+    if (sessionStorage.getItem('startCountdownAfterReload') === 'true') {
+    sessionStorage.removeItem('startCountdownAfterReload');
+    startCountdown();
+  }
+});
 
     // Add start button
     const startBtn = document.createElement('button');
@@ -62,7 +118,8 @@ let score = 0, health = 3, timeLeft = 60;
     function restart() {
         startBtn.style.display = 'none';
         gameOverModal.style.display = 'none';
-        startCountdown();
+        sessionStorage.setItem('startCountdownAfterReload', 'true');
+        resetGame();
     }
 
     function startCountdown() {
@@ -82,6 +139,7 @@ let score = 0, health = 3, timeLeft = 60;
                 clearInterval(countdownInterval);
                 setTimeout(() => {
                     countdownOverlay.style.display = 'none';
+                    activateGameClick();
                     startGamePlay();
                 }, 1000);
             }
@@ -129,6 +187,17 @@ let score = 0, health = 3, timeLeft = 60;
         timeLeft--;
         document.getElementById('time').textContent = timeLeft;
         if (timeLeft <= 0 || health <= 0) endGame();
+    }
+
+    function activateGameClick() {
+        gameArea.onclick = function (e) {
+            if (e.target.classList.contains('ghost')) return;
+            gunshotSound.play();
+            health--;
+            healthLossSound.play();
+            updateHearts();
+            if (health <= 0) endGame();
+        };
     }
 
     function spawnGhost() {
@@ -219,15 +288,6 @@ let score = 0, health = 3, timeLeft = 60;
         document.getElementById('hearts').src = imgSrc;
     }
 
-    gameArea.onclick = function (e) {
-        if (e.target.classList.contains('ghost')) return;
-        gunshotSound.play();
-        health--;
-        healthLossSound.play();
-        updateHearts();
-        if (health <= 0) endGame();
-    };
-
     function setCookie(name, value, days) {
         let expires = "";
         if (days) {
@@ -253,32 +313,11 @@ let score = 0, health = 3, timeLeft = 60;
         return null;
     }
 
+function resetGame() {
+    location.reload();
+}
 
-    function resetGame() {
-        score = 0;
-        health = 3;
-        timeLeft = 60;
-        ghostCount = 0;
-        currentGhost = null;
 
-        addEventListener();
-        updateHearts();
-        document.getElementById('score').textContent = score;
-        document.getElementById('time').textContent = timeLeft;
-        gameOverModal.style.display = 'none';
-        gameArea.innerHTML = '';
-        gameArea.appendChild(startBtn);
-        gameArea.appendChild(countdownOverlay);
-        startBtn.style.display = 'block';
-        playerNameInput.value = '';
-        playerName = '';
-        setCookie('ghost_player_name', '', 30);
-        clearInterval(gameInterval);
-        clearTimeout(ghostTimeout);
-        backgroundAudio.pause();
-        startBtn.style.display = 'block';
-        startGame();
-    }
     const customCursor = document.createElement('img');
         customCursor.src = 'https://i.ibb.co/23Dc5XbQ/Pointer.png';
         customCursor.id = 'customCursor';
@@ -289,13 +328,9 @@ let score = 0, health = 3, timeLeft = 60;
         customCursor.style.zIndex = '9999';
         customCursor.style.transform = 'translate(-50%, -50%)';
         gameArea.appendChild(customCursor);
-
 // Move cursor with mouse inside gameArea
         gameArea.addEventListener('mousemove', function (e) {
             const rect = gameArea.getBoundingClientRect();
             customCursor.style.left = (e.clientX - rect.left) + 'px';
             customCursor.style.top = (e.clientY - rect.top) + 'px';
         });
-
-        
-

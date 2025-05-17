@@ -77,6 +77,14 @@
         box-shadow: 0 0 30px var(--highlight);
       }
     }
+    @keyframes bounce {
+      0%, 100% {
+        transform: translateX(-50%) translateY(0);
+      }
+      50% {
+        transform: translateX(-50%) translateY(10px);
+      }
+    }
 
     /* Hero Section */
     .hero {
@@ -125,6 +133,13 @@
       background: #ff1e1e;
       transform: scale(1.05);
       animation: glowPulse 1.5s infinite alternate;
+    }
+    .hero .arrow {
+      position: absolute;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      animation: bounce 1.5s infinite;
     }
 
     /* About Section */
@@ -211,12 +226,17 @@
 
   <!-- Hero -->
   <section class="hero" id="hero">
-    <h1>GHOST HUNTER</h1>
-    <button onclick="window.location.href='game.html'">START GAME</button>
-  </section>
+  <h1>GHOST HUNTER</h1>
+  <button onclick="window.location.href='game.html'">START GAME</button>
+
+  <a href="#about" class="arrow">
+    <img src="/images/arrow.svg" alt="down" style="width: 60px;">
+  </a>
+</section>
+
 
   <!-- About -->
-  <section class="about">
+  <section class="about" id="about">
     <h2>ABOUT THE GAME</h2>
 
     <!-- Intro -->

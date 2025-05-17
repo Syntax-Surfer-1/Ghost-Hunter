@@ -25,6 +25,11 @@
             background: #10193a;
             border-bottom: 2px solid #333;
         }
+        nav div {
+            display: flex;
+            align-items: center;
+            flex-direction: row;
+        }
 
         nav h1 {
             font-size: 14px;
@@ -39,6 +44,34 @@
             border-radius: 6px;
             margin-left: 8px;
             cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }   
+        nav button:hover {
+            background: #2a3570;
+            border-color: #666;
+        }
+        
+        #muteBtn {
+            padding: 6px; 
+            width: 30px;  
+            height: 30px;
+            margin-left: 8px;
+            background: #1a254d;
+            border-radius: 6px;
+            border: 1px solid #444;
+            cursor: pointer;
+        }
+        #muteBtn:hover {
+            background: #2a3570;
+            border-color: #666;
+        }
+
+        #muteIcon {
+            width: 24px;
+            height: 24px;
+            pointer-events: none;
         }
 
         #hud {

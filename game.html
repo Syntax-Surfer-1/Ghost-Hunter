@@ -16,6 +16,9 @@
     <div>
         <button onclick="window.location.href='index.html'">Home</button>
         <button onclick="toggleModal('infoModal')">Info</button>
+        <button id="muteBtn">
+            <img id="muteIcon" src="images/speaker-mute.svg" alt="Speaker Icon" style="width:30px; height:30px;" />
+        </button>
     </div>
 </nav>
 
@@ -26,6 +29,7 @@
 </div>
 
 <div id="gameArea"></div>
+
 
 <div class="modal" id="infoModal">
     <div class="modal-content">
@@ -44,7 +48,7 @@
         <h2>Game Over</h2>
         <p id="gameOverText"></p>
         <button onclick="restart()">Restart</button>
-        <button onclick="closeGameOverModal()">Close</button>
+        <button onclick=" closeGameOverModal()">Close</button>
     </div>
 </div>
 <script src="js/game.js"></script>
