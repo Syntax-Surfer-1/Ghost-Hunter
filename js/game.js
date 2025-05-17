@@ -14,12 +14,12 @@ let score = 0, health = 3, timeLeft = 60;
     // Preload sounds
     backgroundAudio = new Audio('https://syntax-surfer-1.github.io/Ghost-Hunter/sounds/background.mp3');
     backgroundAudio.loop = true;
-    gunshotSound = new Audio('./sounds/gunshot.mp3');
-    hitSound = new Audio('/sounds/hit.wav');
-    bonusSound = new Audio('/sounds/bonus.wav');
-    healthLossSound = new Audio('sounds/health_loss.mp3');
-    gameOverSound = new Audio('sounds/gameover.mp3');
-    countdownSound = new Audio('sounds/123Go.mp3');
+    gunshotSound = new Audio('https://syntax-surfer-1.github.io/Ghost-Hunter/sounds/gunshot.mp3');
+    hitSound = new Audio('https://syntax-surfer-1.github.io/Ghost-Hunter/sounds/hit.wav');
+    bonusSound = new Audio('https://syntax-surfer-1.github.io/Ghost-Hunter/sounds/bonus.wav');
+    healthLossSound = new Audio('https://syntax-surfer-1.github.io/Ghost-Hunter/sounds/health_loss.mp3');
+    gameOverSound = new Audio('https://syntax-surfer-1.github.io/Ghost-Hunter/sounds/gameover.mp3');
+    countdownSound = new Audio('https://syntax-surfer-1.github.io/Ghost-Hunter/sounds/123Go.mp3');
 
     // Countdown overlay element
     countdownOverlay = document.createElement('div');
