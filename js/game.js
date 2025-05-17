@@ -171,7 +171,7 @@ let score = 0, health = 3, timeLeft = 60;
                 if (health <= 0) endGame();
                 else spawnGhost();
             }
-        }, 2000);
+        }, 1000);
     }
 
     function endGame() {
