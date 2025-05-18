@@ -20,14 +20,14 @@ But hurry... you’re racing against the clock! ⏰
 - 👻 **Random ghost appearances** to keep things unpredictable  
 - 🖱️ **Simple click-to-catch mechanic** – easy to learn, hard to master  
 - ⏱️ **Timer-based gameplay** – see how many you can catch before time runs out  
-- 🎃 **Spooky, Halloween-themed UI** for immersive fun  
+- 🎮 **Spooky, Retro UI** for immersive fun  
 - 📱 **Responsive design** – works smoothly on desktops, tablets, and phones
 
 ---
 
 ## 📸 Game Demo
 
-![Gameplay Screenshot](images/GameDemo.gif)
+![Gameplay Demo](images/GameDemo.gif)
 
 ---
 
@@ -64,5 +64,5 @@ Let’s build spooky fun together!
 
 ---
 
-> ⚠️ **Note:** All images are stored in the `images/` folder. Some paths may differ in the hosted version due to GitHub Pages file handling.
+> ⚠️ **Note:** All images are included in the images/ folder in the repo, but the code uses externally hosted image URLs to improve loading speed and avoid issues with GitHub Pages hosting.
 
