@@ -91,7 +91,7 @@
         #gameArea {
             flex: 1;
             position: relative;
-            background: url('https://i.ibb.co/Jj5SHykX/Gbg.jpg') no-repeat center/cover;
+            background: url('../images/Gbg.jpg') no-repeat center/cover;
             margin: 0 auto;
             width: 100%;
             max-width: 1300px;
@@ -106,7 +106,7 @@
             position: absolute;
             width: 100px;
             height: 100px;
-            background: url('https://i.ibb.co/v6q5RmzS/G1.png') no-repeat center/contain;
+            background: url('../images/G1.png') no-repeat center/contain;
             background-size: contain;
             animation: fadeOut 1.2s forwards;
             cursor: pointer;
@@ -118,7 +118,7 @@
         }
 
         .bonus {
-            background: url('https://i.ibb.co/nsgHnDCZ/G2.png') no-repeat center/contain;
+            background: url('../images/G2.png') no-repeat center/contain;
             background-size: contain;
         }
 

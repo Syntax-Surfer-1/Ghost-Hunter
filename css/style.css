@@ -78,7 +78,7 @@
     .hero {
       height: 100vh;
       background: linear-gradient(rgba(10, 15, 44, 0.6), rgba(20, 32, 66, 0.7)),
-        url('https://i.ibb.co/q3TYq971/Hbg.jpg') center/cover no-repeat;
+        url('../images/Hbg.jpg') center/cover no-repeat;
       display: flex;
       flex-direction: column;
       align-items: center;
