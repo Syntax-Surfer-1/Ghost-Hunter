@@ -239,7 +239,7 @@ window.addEventListener('load', () => {
                 if (health <= 0) endGame();
                 else spawnGhost();
             }
-        }, 1200);
+        }, 2000);
     }
 
     function endGame() {

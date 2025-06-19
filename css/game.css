@@ -108,7 +108,7 @@
             height: 100px;
             background: url('../images/G1.png') no-repeat center/contain;
             background-size: contain;
-            animation: fadeOut 1.2s forwards;
+            animation: fadeOut 2s forwards;
             cursor: pointer;
             cursor: none;
             transition: transform 0.2s ease;
