@@ -87,9 +87,10 @@ window.addEventListener('load', () => {
     }
 
     if (sessionStorage.getItem('startCountdownAfterReload') === 'true') {
-    sessionStorage.removeItem('startCountdownAfterReload');
-    startCountdown();
-  }
+        sessionStorage.removeItem('startCountdownAfterReload');
+        const lastDifficulty = getCookie('last_difficulty') || 'easy';
+        startTimedGame(lastDifficulty);
+    }
 });
 
     // Add start button
@@ -112,15 +113,32 @@ window.addEventListener('load', () => {
 
     startBtn.onclick = () => {
         startBtn.style.display = 'none'; 
-        startCountdown();
+        showDifficultyOptions();
     };
-
     function restart() {
         startBtn.style.display = 'none';
         gameOverModal.style.display = 'none';
         sessionStorage.setItem('startCountdownAfterReload', 'true');
         resetGame();
     }
+
+    function showDifficultyOptions() {
+    document.getElementById('difficultyOptions').style.display = 'block';
+}
+
+    function startTimedGame(difficulty) {
+        if (difficulty === 'easy') ghostTimeoutDuration = 2000;
+        if (difficulty === 'medium') ghostTimeoutDuration = 1400;
+        if (difficulty === 'hard') ghostTimeoutDuration = 1000;
+        setCookie('last_difficulty', difficulty, 1);
+        health = 3;
+        timeLeft = 60;
+        document.getElementById('difficultyOptions').style.display = 'none';
+        document.getElementById('time').textContent = timeLeft;
+        updateHearts();
+        startCountdown();
+    }
+
 
     function startCountdown() {
         let count = 3;
@@ -208,6 +226,8 @@ window.addEventListener('load', () => {
         ghostCount++;
         const ghost = document.createElement('div');
         ghost.className = 'ghost';
+        ghost.style.setProperty('--fade-duration', ghostTimeoutDuration + 'ms');
+
         if (ghostCount % 6 === 0) ghost.classList.add('bonus');
 
         const maxTop = gameArea.clientHeight - 60;
@@ -239,7 +259,7 @@ window.addEventListener('load', () => {
                 if (health <= 0) endGame();
                 else spawnGhost();
             }
-        }, 2000);
+        }, ghostTimeoutDuration );
     }
 
     function endGame() {

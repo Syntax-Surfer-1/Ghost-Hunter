@@ -102,13 +102,42 @@
             position: relative;
         }
 
+        #difficultyOptions {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        font-size: 1.5rem;
+        background: #1a254d;
+        padding: 2rem;
+        border-radius: 12px;
+        color: white;
+        z-index: 100;
+        display: none;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+        text-align: center;
+        }
+        #difficultyOptions button {
+        margin: 10px;
+        padding: 0.6rem 1.2rem;
+        font-size: 1rem;
+        background: #ff69b4;
+        border: none;
+        color: #fff;
+        border-radius: 8px;
+        cursor: pointer;
+        }
+        #difficultyOptions button:hover {
+        background: #ff85c1;
+        }
+
         .ghost {
             position: absolute;
             width: 100px;
             height: 100px;
             background: url('../images/G1.png') no-repeat center/contain;
             background-size: contain;
-            animation: fadeOut 2s forwards;
+            animation: fadeOut var(--fade-duration, 2s) forwards;
             cursor: pointer;
             cursor: none;
             transition: transform 0.2s ease;

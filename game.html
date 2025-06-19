@@ -28,7 +28,14 @@
         <div>Time: <span id="time">60</span>s</div>
     </div>
     
-    <div id="gameArea"></div>
+    <div id="gameArea">
+        <div id="difficultyOptions" style="text-align: center; padding: 20px; display: none;">
+            <h3>Select Difficulty</h3>
+            <button onclick="startTimedGame('easy')">Easy</button>
+            <button onclick="startTimedGame('medium')">Medium</button>
+            <button onclick="startTimedGame('hard')">Hard</button>
+        </div>
+    </div>
     
     
     <div class="modal" id="infoModal">
