@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Ghost Hunter</title>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/game.css"/>
+    <link rel="icon" href="https://i.ibb.co/nsgHnDCZ/G2.png" type="image/x-icon">
+</head>
+<body>
+    <nav>
+    <h1>GHOST HUNTER</h1>
+    <div>
+        <button onclick="window.location.href='index.html'">Home</button>
+        <button onclick="toggleModal('infoModal')">Info</button>
+        <button id="muteBtn">
+            <img id="muteIcon" src="images/speaker-mute.svg" alt="Speaker Icon" style="width:30px; height:30px;" />
+        </button>
+    </div>
+</nav>
+<div id="hud">
+    <div>Health: <img id="hearts" src="https://i.ibb.co/hRQPthYR/heart-3.png" alt="hearts"/></div>
+    <div>Score: <span id="score">0</span></div>
+    <div>Time: <span id="time">60</span>s</div>
+</div>
+<div id="gameArea"></div>
+
+
+<div class="modal" id="infoModal">
+    <div class="modal-content">
+        <h2>CORING & STRATEGY</h2>
+        <p><br><br>
+        👻 Regular ghost = +10 points <br>
+        🌟 Golden ghost = +30 points <br>
+        ❌ Missed ghost = -1 heart <br></p>
+        <p>💡 Tip: Golden ghosts appear every 6 ghosts — be ready!</p>
+        <button onclick="toggleModal('infoModal')">Close</button>
+    </div>
+</div>
+
+<div id="gameOverModal" class="modal">
+    <div class="modal-content">
+        <h2>Game Over</h2>
+        <p id="gameOverText"></p>
+        <button onclick="restart()">Restart</button>
+        <button onclick=" closeGameOverModal()">Close</button>
+    </div>
+</div>
+<script src="js/game.js"></script>
+</body>
+</html>

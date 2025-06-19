@@ -1,0 +1,214 @@
+* {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Press Start 2P', cursive;
+            background: #0a0f2c;
+            color: #fff;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            user-select: none;           
+            -webkit-user-select: none;   
+            -ms-user-select: none;  
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 24px;
+            background: #10193a;
+            border-bottom: 2px solid #333;
+        }
+        nav div {
+            display: flex;
+            align-items: center;
+            flex-direction: row;
+        }
+
+        nav h1 {
+            font-size: 14px;
+        }
+
+        nav button {
+            font-family: inherit;
+            background: #1a254d;
+            color: white;
+            border: 1px solid #444;
+            padding: 6px 12px;
+            border-radius: 6px;
+            margin-left: 8px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }   
+        nav button:hover {
+            background: #2a3570;
+            border-color: #666;
+        }
+        
+        #muteBtn {
+            padding: 6px; 
+            width: 30px;  
+            height: 30px;
+            margin-left: 8px;
+            background: #1a254d;
+            border-radius: 6px;
+            border: 1px solid #444;
+            cursor: pointer;
+        }
+        #muteBtn:hover {
+            background: #2a3570;
+            border-color: #666;
+        }
+
+        #muteIcon {
+            width: 24px;
+            height: 24px;
+            pointer-events: none;
+        }
+
+        #hud {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            padding: 10px;
+            background: #142042;
+            border-bottom: 2px solid #333;
+            font-size: 10px;
+        }
+
+        #hud img {
+            height: 20px;
+        }
+
+        #gameArea {
+            flex: 1;
+            position: relative;
+            background: url('https://i.ibb.co/Jj5SHykX/Gbg.jpg') no-repeat center/cover;
+            margin: 0 auto;
+            width: 100%;
+            max-width: 1300px;
+            border: 2px solid #333;
+            border-radius: 12px;
+            overflow: hidden;
+            cursor: none;
+            position: relative;
+        }
+
+        .ghost {
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            background: url('https://i.ibb.co/v6q5RmzS/G1.png') no-repeat center/contain;
+            background-size: contain;
+            animation: fadeOut 1.2s forwards;
+            cursor: pointer;
+            cursor: none;
+            transition: transform 0.2s ease;
+        }
+        .ghost:hover {
+            transform: scale(1.2);
+        }
+
+        .bonus {
+            background: url('https://i.ibb.co/nsgHnDCZ/G2.png') no-repeat center/contain;
+            background-size: contain;
+        }
+
+        @keyframes fadeOut {
+            0% {
+                opacity: 1;
+            }
+            100% {
+                opacity: 0;
+            }
+        }
+
+        .modal {
+    position: fixed;
+    inset: 0;
+    display: none;
+    background: rgba(0, 0, 0, 0.7); 
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    backdrop-filter: blur(4px);
+}
+
+.modal-content {
+    background: #1e2a55; 
+    color: #fff;
+    padding: 30px 25px;
+    width: 90%;
+    max-width: 440px;
+    border-radius: 12px;
+    text-align: center;
+    box-shadow: 0 12px 25px rgba(0, 0, 0, 0.3);
+    animation: popIn 0.3s ease-out;
+}
+
+.modal-content h2 {
+    font-size: 16px;
+    margin-bottom: 12px;
+    font-weight: 600;
+}
+.modal-content p {
+    font-size: 13px;
+    margin-bottom: 12px;
+    font-weight: 600;
+}
+
+@keyframes popIn {
+    0% {
+        transform: scale(0.9);
+        opacity: 0;
+    }
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+
+        input[type="text"] {
+            padding: 10px;
+            font-family: inherit;
+            width: 90%;
+            margin: 10px 0;
+        }
+
+        button {
+            font-family: inherit;
+            margin: 5px;
+            padding: 8px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            border: 1px solid #444;
+            background-color: #1a254d;
+            color: white;
+        }
+        
+
+
+        @media (max-width: 600px) {
+            nav h1 {
+                font-size: 12px;
+            }
+
+            #hud {
+                flex-direction: column;
+                gap: 6px;
+            }
+
+            .ghost {
+                width: 40px;
+                height: 40px;
+            }
+        }

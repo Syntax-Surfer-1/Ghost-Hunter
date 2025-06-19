@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ghost Hunter</title>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <link rel="icon" href="https://i.ibb.co/v6q5RmzS/G1.png" type="image/x-icon">
+    <link rel="stylesheet" href="./css/style.css">
+</head>
+<body>
+    <!-- Hero -->
+  <section class="hero" id="hero">
+  <h1>GHOST HUNTER</h1>
+  <button onclick="window.location.href='game.html'">START GAME</button>
+
+  <a href="#about" class="arrow">
+    <img src="./images/arrow.svg" alt="down" style="width: 60px;">
+  </a>
+</section>
+<!-- About -->
+  <section class="about" id="about">
+    <h2>ABOUT THE GAME</h2>
+
+    <!-- Intro -->
+    <div class="about-section">
+      <img src="https://i.ibb.co/PsvnVq3L/Game.png" alt="Ghost Hunter Screenshot">
+      <div>
+        <h3>🧟 WHAT IS GHOST HUNTER?</h3>
+        <p>
+          A fast-paced reflex game where ghosts randomly appear — your mission: <strong>click them before they disappear!</strong><br><br>
+          You get <strong>60 seconds</strong> and <strong>3 hearts</strong>. Miss a ghost, lose a heart. Lose all or run out of time? Game over!
+        </p>
+      </div>
+    </div>
+
+        <!-- Mechanics -->
+    <div class="about-section reverse">
+  <div style="display: flex; flex-direction: row; gap: 1.5rem; justify-content: center; align-items: center; ">
+    <div style="text-align: center;min-width: 100px;">
+      <img src="https://i.ibb.co/v6q5RmzS/G1.png" alt="Regular Ghost" style="width: 150px; border-radius: 8px; box-shadow: 0 0 5px #000; ">
+      <p style="margin-top: 1.5rem; color: #ffffff;">10-POINTS</p>
+    </div>
+    <div style="text-align: center;min-width: 100px;">
+      <img src="https://i.ibb.co/nsgHnDCZ/G2.png" alt="Golden Ghost" style="width: 150px; border-radius: 8px; box-shadow: 0 0 5px #000; ">
+      <p style="margin-top: 1.5rem; color: #d6a441;">30-POINTS</p>
+    </div>
+  </div>
+  <div>
+    <h3>🎯 SCORING & STRATEGY</h3>
+    <ul>
+      <li>👻 Regular ghost = +10 points</li>
+      <li>🌟 Golden ghost = +30 points</li>
+      <li>❌ Missed ghost = -1 heart</li>
+    </ul>
+    <p>💡 Tip: Golden ghosts appear every 6 ghosts — be ready!</p>
+  </div>
+</div>
+
+<!-- Instructions -->
+    <div class="about-section" style="flex-direction: column; align-items: center; text-align: center;">
+      <div>
+        <h3>🕹️ HOW TO PLAY</h3>
+        <ul style="list-style: none; padding: 0;">
+          <li>Click "START GAME"</li>
+          <li>Tap ghosts to score points</li>
+          <li>Avoid missing — each miss costs a heart</li>
+          <li>Try to beat your high score before time runs out</li>
+        </ul>
+        <p><a href="#hero" style="text-decoration: underline;">Good luck, hunter!</a></p>
+      </div>
+    </div>
+  </section>
+  <footer>
+    &copy; 2025 GHOST HUNTER | Created by <a href="https://github.com/Syntax-Surfer-1" style="text-decoration: underline;">Syntax-Surfer</a>
+  </footer>
+
+  <script>
+    const aboutSections = document.querySelectorAll('.about-section');
+
+    function revealSections() {
+      aboutSections.forEach(section => {
+        const rect = section.getBoundingClientRect();
+        if (rect.top < window.innerHeight - 100) {
+          section.classList.add('visible');
+        }
+      });
+    }
+
+    window.addEventListener('scroll', revealSections);
+    window.addEventListener('load', revealSections);
+  </script>
+</body>
+</html>
