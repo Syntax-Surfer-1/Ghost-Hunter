@@ -14,7 +14,7 @@
     const muteBtn = document.getElementById('muteBtn');
     const muteIcon = document.getElementById('muteIcon');
 
-  const volumeLevel = 0.2; // Set your desired volume (0.0 to 1.0)
+    const volumeLevel = 0.2; 
 
 // Preload sounds
 backgroundAudio = new Audio('sounds/background.mp3');
@@ -72,10 +72,10 @@ countdownSound.volume = volumeLevel;
 
     // Optionally change icon to reflect mute state
     if (isMuted) {
-        muteIcon.src = 'images/speaker-unmute.svg'; // Replace with your mute icon path
+        muteIcon.src = 'images/speaker-unmute.svg'; 
         muteIcon.alt = 'Muted';
     } else {
-        muteIcon.src = 'images/speaker-mute.svg'; // Original icon
+        muteIcon.src = 'images/speaker-mute.svg'; 
         muteIcon.alt = 'Speaker Icon';
     }
 });
@@ -84,7 +84,7 @@ window.addEventListener('load', () => {
     const savedMute = localStorage.getItem('ghost_isMuted');
     isMuted = savedMute === 'true';
 
-    // Apply the saved mute state to all audio elements
+
     backgroundAudio.muted = isMuted;
     gunshotSound.muted = isMuted;
     hitSound.muted = isMuted;
