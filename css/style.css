@@ -102,6 +102,10 @@
       animation-fill-mode: forwards;
       animation-delay: 0.3s;
     }
+    .hero-button-wrapper {
+      animation: fadeSlideUp 1s ease forwards;
+      animation-delay: 0.6s;
+    }
 
     .hero button {
       font-size: 1rem;
@@ -113,8 +117,6 @@
       cursor: pointer;
       box-shadow: 0 0 15px var(--highlight);
       transition: transform 0.3s ease, background 0.3s ease;
-      animation: fadeSlideUp 1s ease forwards;
-      animation-delay: 0.6s;
     }
 
     .hero button:hover {

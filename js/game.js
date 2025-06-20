@@ -14,15 +14,31 @@
     const muteBtn = document.getElementById('muteBtn');
     const muteIcon = document.getElementById('muteIcon');
 
-    // Preload sounds
-    backgroundAudio = new Audio('sounds/background.mp3');
-    backgroundAudio.loop = true;
-    gunshotSound = new Audio('sounds/gunshot.mp3');
-    hitSound = new Audio('sounds/hit.mp3');
-    bonusSound = new Audio('sounds/bonus.mp3');
-    healthLossSound = new Audio('sounds/health_loss.mp3');
-    gameOverSound = new Audio('sounds/gameover.mp3');
-    countdownSound = new Audio('sounds/123Go.mp3');
+  const volumeLevel = 0.2; // Set your desired volume (0.0 to 1.0)
+
+// Preload sounds
+backgroundAudio = new Audio('sounds/background.mp3');
+backgroundAudio.loop = true;
+backgroundAudio.volume = volumeLevel;
+
+gunshotSound = new Audio('sounds/gunshot.mp3');
+gunshotSound.volume = volumeLevel;
+
+hitSound = new Audio('sounds/hit.mp3');
+hitSound.volume = volumeLevel;
+
+bonusSound = new Audio('sounds/bonus.mp3');
+bonusSound.volume = volumeLevel;
+
+healthLossSound = new Audio('sounds/health_loss.mp3');
+healthLossSound.volume = volumeLevel;
+
+gameOverSound = new Audio('sounds/gameover.mp3');
+gameOverSound.volume = volumeLevel;
+
+countdownSound = new Audio('sounds/123Go.mp3');
+countdownSound.volume = volumeLevel;
+
 
     // Countdown overlay element
     countdownOverlay = document.createElement('div');
@@ -138,7 +154,6 @@ window.addEventListener('load', () => {
         updateHearts();
         startCountdown();
     }
-
 
     function startCountdown() {
         let count = 3;
