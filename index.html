@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Ghost Hunter: A fast-paced ghost-tapping arcade game. Play now and beat your high score!">
   <title>Ghost Hunter</title>
 
   <!-- Google Fonts -->
@@ -12,6 +13,13 @@
   <link rel="stylesheet" href="./css/style.css" />
 </head>
 <body>
+
+<div style="position: fixed; top: 20px; right: 20px; z-index: 999;">
+  <button id="muteBtn" title="Mute / Unmute">
+    <img id="muteIcon" src="images/speaker-mute.svg" alt="Speaker Icon" />
+  </button>
+</div>
+
 
   <!-- Hero -->
   <section class="hero" id="hero">
@@ -25,7 +33,6 @@
     <img src="images/arrow.svg" alt="down" style="width: 60px;">
   </a>
 </section>
-
 
   <!-- About -->
   <section class="about" id="about">
@@ -86,21 +93,71 @@
   <footer>
     &copy; 2025 GHOST HUNTER | Created by <a href="https://github.com/Syntax-Surfer-1" style="text-decoration: underline;">Syntax-Surfer</a>
   </footer>
+<script>
+  // Scroll animation for sections
+  const aboutSections = document.querySelectorAll('.about-section');
 
-  <script>
-    const aboutSections = document.querySelectorAll('.about-section');
+  function revealSections() {
+    aboutSections.forEach(section => {
+      const rect = section.getBoundingClientRect();
+      if (rect.top < window.innerHeight - 100) {
+        section.classList.add('visible');
+      }
+    });
+  }
 
-    function revealSections() {
-      aboutSections.forEach(section => {
-        const rect = section.getBoundingClientRect();
-        if (rect.top < window.innerHeight - 100) {
-          section.classList.add('visible');
-        }
-      });
-    }
+  window.addEventListener('scroll', revealSections);
+  window.addEventListener('load', revealSections);
 
-    window.addEventListener('scroll', revealSections);
-    window.addEventListener('load', revealSections);
-  </script>
+  // Mute Button & Background Audio
+  const muteBtn = document.getElementById('muteBtn');
+  const muteIcon = document.getElementById('muteIcon');
+
+  const volumeLevel = 0.5;
+  let isMuted = localStorage.getItem('ghost_isMuted') === 'true';
+
+  const backgroundAudio = new Audio('sounds/background.mp3');
+  backgroundAudio.loop = true;
+  backgroundAudio.volume = 0;
+  backgroundAudio.muted = isMuted;
+
+  // Play and fade in
+  window.addEventListener('load', () => {
+    backgroundAudio.play().then(() => {
+      if (!isMuted) fadeInVolume(backgroundAudio, volumeLevel, 2000);
+    });
+
+    // Set icon initially
+    muteIcon.src = isMuted ? 'images/speaker-unmute.svg' : 'images/speaker-mute.svg';
+    muteIcon.alt = isMuted ? 'Muted' : 'Speaker Icon';
+  });
+
+  // Mute toggle
+  muteBtn.addEventListener('click', () => {
+    isMuted = !isMuted;
+    backgroundAudio.muted = isMuted;
+    localStorage.setItem('ghost_isMuted', isMuted ? 'true' : 'false');
+
+    muteIcon.src = isMuted ? 'images/speaker-unmute.svg' : 'images/speaker-mute.svg';
+    muteIcon.alt = isMuted ? 'Muted' : 'Speaker Icon';
+  });
+
+  function fadeInVolume(audio, target, duration) {
+    const steps = 30;
+    const interval = duration / steps;
+    const increment = target / steps;
+    let currentStep = 0;
+
+    const fade = setInterval(() => {
+      if (isMuted || currentStep >= steps) {
+        clearInterval(fade);
+        audio.volume = isMuted ? 0 : target;
+        return;
+      }
+      audio.volume = Math.min(audio.volume + increment, target);
+      currentStep++;
+    }, interval);
+  }
+</script>
 </body>
 </html>

@@ -74,6 +74,34 @@
       }
     }
 
+    #muteBtn {
+  padding: 10px;
+  width: 48px;
+  height: 48px;
+  margin-left: 8px;
+  background: #1a254d;
+  border-radius: 6px;
+  border: 1px solid #444;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#muteBtn:hover {
+  background: #2a3570;
+  border-color: #666;
+}
+
+#muteIcon {
+  width: 32px;
+  height: 32px;
+  pointer-events: none;
+}
+
+
+
+
     /* Hero Section */
     .hero {
       height: 100vh;
