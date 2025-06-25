@@ -1,7 +1,7 @@
     let score = 0, health = 3, timeLeft = 60;
     let ghostCount = 0;
     let gameInterval, ghostTimeout, currentGhost;
-    let countdownOverlay, backgroundAudio, gunshotSound, hitSound, bonusSound, healthLossSound, gameOverSound, countdownSound;
+    let countdownOverlay, backgroundAudio, gunshotSound, hitSound, bonusSound, healthLossSound, gameOverSound, countdownSound, button;
     let playerName = '';
     let isMuted = false;
     let highScore = getCookie('ghost_high_score') || 0;
@@ -39,6 +39,9 @@ gameOverSound.volume = volumeLevel;
 countdownSound = new Audio('sounds/123Go.mp3');
 countdownSound.volume = volumeLevel;
 
+button = new Audio('sounds/button.mp3');
+button.volume = volumeLevel;
+
 
     // Countdown overlay element
     countdownOverlay = document.createElement('div');
@@ -57,6 +60,8 @@ countdownSound.volume = volumeLevel;
 
 
     muteBtn.addEventListener('click', () => {
+    buttonSound();
+    // Toggle mute state
     isMuted = !isMuted;
 
     localStorage.setItem('ghost_isMuted', isMuted ? 'true' : 'false');
@@ -69,6 +74,7 @@ countdownSound.volume = volumeLevel;
     healthLossSound.muted = isMuted;
     gameOverSound.muted = isMuted;
     countdownSound.muted = isMuted;
+    button.muted = isMuted;
 
     // Optionally change icon to reflect mute state
     if (isMuted) {
@@ -92,6 +98,7 @@ window.addEventListener('load', () => {
     healthLossSound.muted = isMuted;
     gameOverSound.muted = isMuted;
     countdownSound.muted = isMuted;
+    button.muted = isMuted;
 
     // Set mute icon accordingly
     if (isMuted) {
@@ -107,7 +114,29 @@ window.addEventListener('load', () => {
         const lastDifficulty = getCookie('last_difficulty') || 'easy';
         startTimedGame(lastDifficulty);
     }
+
+    if (sessionStorage.getItem('playButtonSound') === 'true') {
+        sessionStorage.removeItem('playButtonSound');
+        buttonSound();
+    }
+
+    if (sessionStorage.getItem('startCountdownAfterReload') === 'true') {
+        sessionStorage.removeItem('startCountdownAfterReload');
+        const lastDifficulty = getCookie('last_difficulty') || 'easy';
+        startTimedGame(lastDifficulty);
+    }
 });
+
+document.getElementById('restartBtn').addEventListener('click', () => {
+  buttonSound();
+  restart();
+});
+
+document.getElementById('closeBtn').addEventListener('click', () => {
+  buttonSound();
+  closeGameOverModal();
+});
+
 
     // Add start button
     const startBtn = document.createElement('button');
@@ -129,11 +158,13 @@ window.addEventListener('load', () => {
 
     startBtn.onclick = () => {
         startBtn.style.display = 'none'; 
+        buttonSound();
         showDifficultyOptions();
     };
     function restart() {
         startBtn.style.display = 'none';
         gameOverModal.style.display = 'none';
+        sessionStorage.setItem('playButtonSound', 'true');
         sessionStorage.setItem('startCountdownAfterReload', 'true');
         resetGame();
     }
@@ -141,6 +172,10 @@ window.addEventListener('load', () => {
     function showDifficultyOptions() {
     document.getElementById('difficultyOptions').style.display = 'block';
 }
+
+    function buttonSound() {
+        button.play();
+    }
 
     function startTimedGame(difficulty) {
         if (difficulty === 'easy') ghostTimeoutDuration = 2000;
@@ -302,6 +337,7 @@ window.addEventListener('load', () => {
 
     function closeGameOverModal() {
         gameOverModal.style.display = 'none';
+        sessionStorage.setItem('playButtonSound', 'true');
         resetGame();
     }
 

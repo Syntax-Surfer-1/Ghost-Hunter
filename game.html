@@ -15,8 +15,8 @@
     <nav>
         <h1>GHOST HUNTER</h1>
         <div>
-            <button onclick="window.location.href='index.html'">Home</button>
-            <button onclick="toggleModal('infoModal')">Info</button>
+            <button onclick="window.location.href='index.html'; sessionStorage.setItem('playButtonSound', 'true');">Home</button>
+            <button onclick="toggleModal('infoModal'); buttonSound();">Info</button>
             <button id="muteBtn">
                 <img id="muteIcon" src="images/speaker-mute.svg" alt="Speaker Icon" style="width:30px; height:30px;" />
             </button>
@@ -32,9 +32,9 @@
     <div id="gameArea">
         <div id="difficultyOptions" style="text-align: center; padding: 20px; display: none;">
             <h3>Select Difficulty</h3>
-            <button onclick="startTimedGame('easy')">Easy</button>
-            <button onclick="startTimedGame('medium')">Medium</button>
-            <button onclick="startTimedGame('hard')">Hard</button>
+            <button onclick="startTimedGame('easy'); buttonSound();">Easy</button>
+            <button onclick="startTimedGame('medium'); buttonSound();">Medium</button>
+            <button onclick="startTimedGame('hard'); buttonSound();">Hard</button>
         </div>
     </div>
     
@@ -47,7 +47,7 @@
             🌟 Golden ghost = +30 points <br>
             ❌ Missed ghost = -1 heart <br></p>
             <p>💡 Tip: Golden ghosts appear every 6 ghosts — be ready!</p>
-            <button onclick="toggleModal('infoModal')">Close</button>
+            <button onclick="toggleModal('infoModal'); buttonSound();">Close</button>
         </div>
     </div>
     
@@ -55,8 +55,9 @@
         <div class="modal-content">
             <h2>Game Over</h2>
             <p id="gameOverText"></p>
-            <button onclick="restart()">Restart</button>
-            <button onclick=" closeGameOverModal()">Close</button>
+            <button id="restartBtn">Restart</button>
+            <button id="closeBtn">Close</button>
+
         </div>
     </div>
     <script src="js/game.js"></script>
