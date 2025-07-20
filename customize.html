@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Ghost Hunter</title>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/customize.css">
+  <link rel="icon" href="images/Ghost/2/G2.png" type="image/x-icon">
+</head>
+<body>
+  <nav>
+    <h1>Customize Game</h1>
+    <div>
+      <button onclick="window.location.href='game.html'; sessionStorage.setItem('playButtonSound', 'true');">← Back to Game</button>
+      <button id="muteBtn">
+        <img id="muteIcon" src="images/speaker-mute.svg" alt="Speaker Icon">
+      </button>
+    </div>
+  </nav>
+
+  <main>
+    <div class="section">
+      <h2>CHOOSE BACKGROUND</h2>
+      <div class="option-grid" id="bgOptions"></div>
+    </div>
+
+    <div class="section">
+      <h2>CHOOSE GHOST SKIN</h2>
+      <div class="option-grid" id="ghostOptions"></div>
+    </div>
+
+    <button onclick="saveSelection()">Save and Start</button>
+  </main>
+
+<script src="js/customize.js"></script>
+</body>
+</html>

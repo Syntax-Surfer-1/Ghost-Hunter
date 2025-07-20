@@ -7,8 +7,9 @@
         <title>Ghost Hunter</title>
         <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
         <link rel="stylesheet" href="css/game.css"/>
-        <link rel="icon" href="images/G2.png" type="image/x-icon">
-    
+        <link rel="icon" href="images/Ghost/1/G2.png" type="image/x-icon">
+        <link rel="icon" href="images/Ghost/1/G2.png" type="image/x-icon">
+
     </head>
     <body>
     
@@ -17,6 +18,7 @@
         <div>
             <button onclick="window.location.href='index.html'; sessionStorage.setItem('playButtonSound', 'true');">Home</button>
             <button onclick="toggleModal('infoModal'); buttonSound();">Info</button>
+            <button onclick="window.location.href='customize.html'; sessionStorage.setItem('playButtonSound', 'true');">Customize</button>
             <button id="muteBtn">
                 <img id="muteIcon" src="images/speaker-mute.svg" alt="Speaker Icon" style="width:30px; height:30px;" />
             </button>
@@ -37,7 +39,8 @@
             <button onclick="startTimedGame('hard'); buttonSound();">Hard</button>
         </div>
     </div>
-    
+
+
     
     <div class="modal" id="infoModal">
         <div class="modal-content">
@@ -60,6 +63,7 @@
 
         </div>
     </div>
+    
     <script src="js/game.js"></script>
     </body>
 </html>

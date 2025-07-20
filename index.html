@@ -9,7 +9,7 @@
   <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet" />
   
-  <link rel="icon" href="images/G1.png" type="image/x-icon">
+  <link rel="icon" href="images/Ghost/1/G1.png" type="image/x-icon">
   <link rel="stylesheet" href="./css/style.css" />
 </head>
 <body>
@@ -54,11 +54,11 @@
     <div class="about-section reverse">
   <div style="display: flex; flex-direction: row; gap: 1.5rem; justify-content: center; align-items: center; ">
     <div style="text-align: center;min-width: 100px;">
-      <img src="images/G1.png" alt="Regular Ghost" style="width: 150px; border-radius: 8px; box-shadow: 0 0 5px #000; ">
+      <img src="images/Ghost/1/G1.png" alt="Regular Ghost" style="width: 150px; border-radius: 8px; box-shadow: 0 0 5px #000; ">
       <p style="margin-top: 1.5rem; color: #ffffff;">10-POINTS</p>
     </div>
     <div style="text-align: center;min-width: 100px;">
-      <img src="images/G2.png" alt="Golden Ghost" style="width: 150px; border-radius: 8px; box-shadow: 0 0 5px #000; ">
+      <img src="images/Ghost/1/G2.png" alt="Golden Ghost" style="width: 150px; border-radius: 8px; box-shadow: 0 0 5px #000; ">
       <p style="margin-top: 1.5rem; color: #d6a441;">30-POINTS</p>
     </div>
   </div>
@@ -93,105 +93,7 @@
   <footer>
     &copy; 2025 GHOST HUNTER | Created by <a href="https://github.com/Syntax-Surfer-1" style="text-decoration: underline;">Syntax-Surfer</a>
   </footer>
-<script>
-  // Scroll animation for sections
-  const aboutSections = document.querySelectorAll('.about-section');
-
-  function revealSections() {
-    aboutSections.forEach(section => {
-      const rect = section.getBoundingClientRect();
-      if (rect.top < window.innerHeight - 100) {
-        section.classList.add('visible');
-      }
-    });
-  }
-
-  window.addEventListener('scroll', revealSections);
-  window.addEventListener('load', revealSections);
-
-  // Elements
-  const muteBtn = document.getElementById('muteBtn');
-  const muteIcon = document.getElementById('muteIcon');
-
-  // Volume and mute settings
-  const volumeLevel = 0.5;
-  let isMuted = localStorage.getItem('ghost_isMuted') === 'true';
-
-  // Preload audio
-  const backgroundAudio = new Audio('sounds/background.mp3');
-  const button = new Audio('sounds/button.mp3');
-
-  backgroundAudio.loop = true;
-  backgroundAudio.volume = 0;
-  backgroundAudio.muted = isMuted;
-
-  // On page load
-  window.addEventListener('load', () => {
-    backgroundAudio.play().then(() => {
-      if (!isMuted) {
-        fadeInVolume(backgroundAudio, volumeLevel, 2000);
-      }
-    }).catch(err => {
-      console.warn("Autoplay failed:", err);
-    });
-
-    // Set initial mute icon
-    muteIcon.src = isMuted ? 'images/speaker-unmute.svg' : 'images/speaker-mute.svg';
-    muteIcon.alt = isMuted ? 'Muted' : 'Speaker Icon';
-
-    // Play button sound after navigation (if flagged)
-    if (sessionStorage.getItem('playButtonSound') === 'true') {
-      sessionStorage.removeItem('playButtonSound');
-      buttonSound();
-    }
-  });
-
-  // Mute toggle
-  muteBtn.addEventListener('click', () => {
-    buttonSound(); // play click sound
-
-    isMuted = !isMuted;
-    localStorage.setItem('ghost_isMuted', isMuted ? 'true' : 'false');
-
-    if (isMuted) {
-      backgroundAudio.muted = true;
-      backgroundAudio.volume = 0;
-    } else {
-      backgroundAudio.muted = false;
-      fadeInVolume(backgroundAudio, volumeLevel, 500); // quick fade back in
-    }
-
-    // Update icon
-    muteIcon.src = isMuted ? 'images/speaker-unmute.svg' : 'images/speaker-mute.svg';
-    muteIcon.alt = isMuted ? 'Muted' : 'Speaker Icon';
-  });
-
-  // Fade in audio volume
-  function fadeInVolume(audio, targetVolume, duration) {
-    const steps = 30;
-    const interval = duration / steps;
-    const increment = targetVolume / steps;
-    let currentStep = 0;
-
-    const fade = setInterval(() => {
-      if (isMuted || currentStep >= steps) {
-        clearInterval(fade);
-        audio.volume = isMuted ? 0 : targetVolume;
-        return;
-      }
-      audio.volume = Math.min(audio.volume + increment, targetVolume);
-      currentStep++;
-    }, interval);
-  }
-
-  // Play button click sound
-  function buttonSound() {
-    if (!isMuted) {
-      button.currentTime = 0;
-      button.play();
-    }
-  }
-</script>
+<script src="js/index.js"></script>
 
 
 </body>

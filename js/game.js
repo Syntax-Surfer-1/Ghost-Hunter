@@ -125,6 +125,11 @@ window.addEventListener('load', () => {
         const lastDifficulty = getCookie('last_difficulty') || 'easy';
         startTimedGame(lastDifficulty);
     }
+
+    // Load background skin
+const selectedBg = getCookie('ghost_background') || '1';
+gameArea.style.background = `url('images/BG/${selectedBg}.jpg') no-repeat center/cover`;
+
 });
 
 document.getElementById('restartBtn').addEventListener('click', () => {
@@ -268,49 +273,56 @@ document.getElementById('closeBtn').addEventListener('click', () => {
         };
     }
 
-    function spawnGhost() {
-        if (currentGhost && gameArea.contains(currentGhost)) {
-            gameArea.removeChild(currentGhost);
-        }
-
-        ghostCount++;
-        const ghost = document.createElement('div');
-        ghost.className = 'ghost';
-        ghost.style.setProperty('--fade-duration', ghostTimeoutDuration + 'ms');
-
-        if (ghostCount % 6 === 0) ghost.classList.add('bonus');
-
-        const maxTop = gameArea.clientHeight - 60;
-        const maxLeft = gameArea.clientWidth - 60;
-        ghost.style.top = Math.random() * maxTop + 'px';
-        ghost.style.left = Math.random() * maxLeft + 'px';
-
-        ghost.onclick = function (e) {
-            e.stopPropagation();
-            gunshotSound.play();
-            const isBonus = ghost.classList.contains('bonus');
-            score += isBonus ? 30 : 10;
-            isBonus ? bonusSound.play() : hitSound.play();
-            document.getElementById('score').textContent = score;
-            gameArea.removeChild(ghost);
-            currentGhost = null;
-            if (timeLeft > 0 && health > 0) spawnGhost();
-        };
-
-        gameArea.appendChild(ghost);
-        currentGhost = ghost;
-
-        ghostTimeout = setTimeout(() => {
-            if (gameArea.contains(ghost)) {
-                gameArea.removeChild(ghost);
-                health--;
-                healthLossSound.play();
-                updateHearts();
-                if (health <= 0) endGame();
-                else spawnGhost();
-            }
-        }, ghostTimeoutDuration );
+function spawnGhost() {
+    if (currentGhost && gameArea.contains(currentGhost)) {
+        gameArea.removeChild(currentGhost);
     }
+
+    ghostCount++;
+
+    const ghost = document.createElement('div');
+    ghost.className = 'ghost';
+    ghost.style.setProperty('--fade-duration', ghostTimeoutDuration + 'ms');
+
+    const ghostFolder = getCookie('ghost_skin') || '1';
+    const isBonus = ghostCount % 6 === 0;
+
+    const ghostImage = isBonus ? 'G2.png' : 'G1.png';
+    const imagePath = `images/Ghost/${ghostFolder}/${ghostImage}`;
+    ghost.style.background = `url('${imagePath}') no-repeat center/contain`;
+
+    if (isBonus) ghost.classList.add('bonus');
+
+    const maxTop = gameArea.clientHeight - 60;
+    const maxLeft = gameArea.clientWidth - 60;
+    ghost.style.top = Math.random() * maxTop + 'px';
+    ghost.style.left = Math.random() * maxLeft + 'px';
+
+    ghost.onclick = function (e) {
+        e.stopPropagation();
+        gunshotSound.play();
+        score += isBonus ? 30 : 10;
+        (isBonus ? bonusSound : hitSound).play();
+        document.getElementById('score').textContent = score;
+        gameArea.removeChild(ghost);
+        currentGhost = null;
+        if (timeLeft > 0 && health > 0) spawnGhost();
+    };
+
+    gameArea.appendChild(ghost);
+    currentGhost = ghost;
+
+    ghostTimeout = setTimeout(() => {
+        if (gameArea.contains(ghost)) {
+            gameArea.removeChild(ghost);
+            health--;
+            healthLossSound.play();
+            updateHearts();
+            if (health <= 0) endGame();
+            else spawnGhost();
+        }
+    }, ghostTimeoutDuration);
+}
 
     function endGame() {
         clearInterval(gameInterval);
