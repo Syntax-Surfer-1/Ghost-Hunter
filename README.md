@@ -19,21 +19,7 @@ A fun and interactive web-based game where you become the Ghost Hunter and try t
 
 ## 📸 Screenshots
 
-![Gameplay Screenshot](screenshot.png) <!-- Add a real screenshot named 'screenshot.png' to your repo -->
-
----
-
-## 📁 Project Structure
-
-```
-
-Ghost-Hunter/
-├── index.html       # Main HTML file
-├── style.css        # Styling (CSS)
-├── script.js        # Game logic (JavaScript)
-└── images/          # Ghost images and assets
-
-```
+![Gameplay Screenshot](https://github.com/Syntax-Surfer-1/Ghost-Hunter/blob/main/images/GameDemo.gif) 
 
 ---
 
