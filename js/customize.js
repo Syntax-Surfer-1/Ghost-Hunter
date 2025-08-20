@@ -34,7 +34,7 @@
   }
 
   // Load ghost skins
-  for (let i = 1; i <= 2; i++) {
+  for (let i = 1; i <= 4; i++) {
     const div = document.createElement('div');
     div.classList.add('option');
     if (i === selectedGhost) div.classList.add('selected');
